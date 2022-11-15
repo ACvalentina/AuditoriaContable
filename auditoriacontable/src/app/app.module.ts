@@ -7,10 +7,12 @@ import { CabeceraComponent } from './cabecera/cabecera.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ComprobantesComponent } from './comprobantes/comprobantes.component';
+import { Inicio2Component } from './inicio2/inicio2.component';
 
 const appRoutes : Routes = [
   {path:'',component:InicioComponent},
-  {path:'comprobantes',component:ComprobantesComponent}
+  {path:'comprobantes',component:ComprobantesComponent},
+  {path:'inicio2',component:Inicio2Component}
 ]
 
 
@@ -19,7 +21,8 @@ const appRoutes : Routes = [
     AppComponent,
     CabeceraComponent,
     InicioComponent,
-    ComprobantesComponent
+    ComprobantesComponent,
+    Inicio2Component
   ],
   imports: [
     BrowserModule,
