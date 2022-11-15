@@ -10,9 +10,9 @@ import { ComprobantesComponent } from './comprobantes/comprobantes.component';
 import { Inicio2Component } from './inicio2/inicio2.component';
 
 const appRoutes : Routes = [
-  {path:'',component:InicioComponent},
+  {path:'',component:Inicio2Component},
   {path:'comprobantes',component:ComprobantesComponent},
-  {path:'inicio2',component:Inicio2Component}
+  {path:'inicio',component:InicioComponent}
 ]
 
 
