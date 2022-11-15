@@ -2,6 +2,7 @@
     height: 80px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     background-color: palegreen;
     color: white;
     font-weight: 600;
@@ -10,10 +11,9 @@
         margin: 0 16px;  
     }
 
-    /*h1{
-        color: black;
-        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    .bi-house{
+        color:black;
         align-self: center;
-    }*/
+    }
   }
 
