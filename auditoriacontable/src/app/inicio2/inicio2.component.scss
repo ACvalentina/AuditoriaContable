@@ -1,15 +1,22 @@
+@import url(https://fonts.googleapis.com/css2?family=Didact+Gothic);
+
 .container-fluid{
     margin-top:50px;
     margin-bottom: 50px;
     padding-left: 50px;
     padding-right: 50px;
+    
  
 
     .card-info{
         text-align: center;
         opacity: 1;
+        font-family: Didact Gothic;
     }
     
+}
+.intro{
+    font-family: Didact Gothic;
 }
 
 img{
