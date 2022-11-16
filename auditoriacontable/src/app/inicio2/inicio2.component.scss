@@ -1,9 +1,13 @@
 .container-fluid{
     margin-top:50px;
     margin-bottom: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+ 
 
     .card-info{
-        text-align: justify;
+        text-align: center;
+        opacity: 1;
     }
     
 }
@@ -11,4 +15,30 @@
 img{
     height:70px;
     width:70px;
+}
+
+.blog-card{
+    border-radius: 10px;
+    box-shadow: 3px 3px 20px rgba(0, 0, 0, .5);
+    margin-left: 15px;
+    margin-right: 15px;
+    
+}
+
+.background{
+    background: linear-gradient(rgba(204, 203, 203, 0.65), rgba(204, 203, 203, 0.99)), url(images/imagen1.jpg) center;
+    background-size: cover;
+
+}
+
+.background-second{
+    background: linear-gradient(rgba(204, 203, 203, 0.65), rgba(204, 203, 203, 0.99)), url(images/imagen2.jpg) center;
+    background-size: cover;
+     
+}
+
+.background-third{
+    background: linear-gradient(rgba(204, 203, 203, 0.65), rgba(204, 203, 203, 0.99)), url(images/imagen3.jpg) center;
+    background-size: cover;
+     
 }
