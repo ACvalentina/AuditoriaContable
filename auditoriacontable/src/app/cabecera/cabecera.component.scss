@@ -4,8 +4,8 @@
     align-items: center;
     justify-content: space-between;
     background-color: #93d3c9;
-    color: white;
     font-weight: 600;
+    font-family: Didact Gothic;
 
     img{
         margin: 0 16px;  
@@ -20,8 +20,20 @@
   .color {
     background-color: #3d4054;
     color: white;
-    font-family: Didact Gothic;
+    
   }
+
+  .color-boton{
+    background-color: #049c84;
+    color: white;
+  }
+
+  .color-tabla{
+    background-color: #d7efeb;
+    text-align: center;
+  }
+
+ 
 
   
 
