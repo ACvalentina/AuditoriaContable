@@ -18,114 +18,11 @@
           <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z"/>
         </svg>
       </a>
-      
-      
+  
       <!-- BOTON NUEVO COMPROBANTE -->
        
-      <button type="button"  class="btn color" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Nuevo comprobante</button>
-    
-      <!-- VENTANA EMERGENTE NUEVO COMPROBANTE -->
-      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">NUEVO COMPROBANTE</h1>
-              <button type="reset" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <!-- CASILLAS ENCABEZADO -->
-              <form id="formulario" autocomplete="off">
-                <div class="row g-7">
-                  <div class="col-sm-2">
-                    <label class="form-label">Nº de comprobante</label>
-                    <input id="numComprobante" type="text" class="form-control" placeholder="Nº Automático" disabled>
-                  </div>
-                  <div class="col-sm-2">
-                    <label class="form-label">Tipo de comprobante</label>
-                    <select id="tipoComprobante" class="form-select">
-                      <option selected>Seleccionar</option>
-                      <option value="1">Opción 1</option>
-                      <option value="2">Opción 2</option>
-                      <option value="3">Opción 3</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-2">
-                    <label class="form-label">Fecha</label>
-                    <input id="fecha" type="date" class="form-control">
-                  </div>
-                  <div class="col-sm-2">
-                    <label class="form-label">Tipo de documento</label>
-                    <select id="tipoDocumento" class="form-select">
-                      <option selected>Seleccionar</option>
-                      <option value="1">Opción 1</option>
-                      <option value="2">Opción 2</option>
-                      <option value="3">Opción 3</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-4">
-                    <label class="form-label">Glosa</label>
-                    <input id="glosa" type="text" class="form-control">
-                  </div>
-                </div>
-                <br />
-                <br />
-                <!-- TABLA CUENTAS -->
-                <table class="table">
-                  <thead>
-                    <tr class="color-tabla">
-                      <th scope="col"></th>
-                      <th scope="col">CUENTA</th>
-                      <th scope="col">GLOSA</th>
-                      <th scope="col">CENTRO DE COSTOS</th>
-                      <th scope="col">SUCURSAL</th>
-                      <th scope="col">DEBE ($)</th>
-                      <th scope="col">HABER ($)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>
-                        <input id="nombreCuenta" type="text" class="form-control" list="listaCuentas">
-                        <datalist id="listaCuentas">
-                          <option value="Reajuste">
-                          <option value="Documentos">
-                          <option value="Cheques">
-                          <option value="Fondos">
-                        </datalist>
-                      </td>
-                      <td><input type="text" class="form-control" placeholder="Glosa" disabled></td>
-                      <td><input type="text" class="form-control"></td>
-                      <td><input type="text" class="form-control"></td>
-                      <td><input type="text" class="form-control"></td>
-                      <td><input type="text" class="form-control"></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
-                <br />
-                <br />
-                <!-- BOTONES GUARDAR Y CANCELAR -->
-                <div class="modal-footer">
-                  <button type="button" class="btn color-boton">Guardar</button>
-                  <button  type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <button (click)="modal.showModal()" type="button" class="btn color" >Nuevo comprobante</button>
       
-    </div>
-    
-    
+    </div>   
 </div>
+<app-modal #modal></app-modal>

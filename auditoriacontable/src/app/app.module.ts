@@ -12,6 +12,10 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { FirestoreModule} from '@angular/fire/firestore'
+import 'firebase/firestore';
+import { ModalComponent } from './modal/modal.component';
+
 
 const appRoutes : Routes = [
   {path:'',component:Inicio2Component},
@@ -26,7 +30,9 @@ const appRoutes : Routes = [
     CabeceraComponent,
     InicioComponent,
     ComprobantesComponent,
-    Inicio2Component
+    Inicio2Component,
+    ModalComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -34,7 +40,8 @@ const appRoutes : Routes = [
     RouterModule.forRoot(appRoutes),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    FirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
