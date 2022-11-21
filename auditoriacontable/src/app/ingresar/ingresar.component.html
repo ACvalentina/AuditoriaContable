@@ -1,0 +1,86 @@
+<div class="row">
+
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+      
+    
+      
+      <div class="mb-4">
+        <label for="email" class="form-label">Correo electrónico:</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          formControlName="email"
+        />
+      </div>
+    
+      
+      <div
+        *ngIf="(registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['required'])"
+        class="alert alert-danger"
+      >
+        Este campo es obligatorio.
+      </div>    
+      
+      <div
+        *ngIf="(registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['email'])"
+        class="alert alert-danger"
+      >
+        Debe ser un correo válido.
+      </div>
+    
+      
+      <div class="mb-4">
+        <label for="password" class="form-label">Contraseña:</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password1"
+          [(ngModel)]="password1"
+        />
+      </div>
+    
+      
+      <div
+        *ngIf="(registerForm.get('password1')?.touched && registerForm.get('password1')?.errors?.['required'])"
+        class="alert alert-danger"
+      >
+        Este campo es obligatorio.
+      </div>
+    
+      
+      <div
+        *ngIf="registerForm.get('password1')?.touched && registerForm.get('password1')?.errors?.['minlength']"
+        class="alert alert-danger"
+      >
+        Contraseña debe ser de al menos
+        {{ registerForm.get('password1')?.errors?.['minlength']?.requiredLength }}
+        caracteres.
+      </div>
+    
+      
+      <div
+        *ngIf="registerForm.get('password1')?.touched && registerForm.get('password1')?.errors?.['maxlength']"
+        class="alert alert-danger"
+      >
+        Contraseña debe ser como máximo
+        {{ registerForm.get('password1')?.errors?.['maxlength']?.requiredLength }}
+        caracteres.
+      </div>
+    
+      
+      
+
+      <a href="/registrar">¿No tienes cuenta?, Regístrate.</a>
+
+      <br>
+      <br>
+    
+      <button type="submit" class="btn btn-dark" [disabled]="(registerForm.get('email')?.errors?.['required'] || registerForm.get('email')?.errors?.['email'] || registerForm.get('password1')?.errors?.['required'] || registerForm.get('password1')?.errors?.['minlength'] || registerForm.get('password1')?.errors?.['maxlength'])" href="/inicio2">
+        Ingresar
+      </button>
+    </form>
+  </div>

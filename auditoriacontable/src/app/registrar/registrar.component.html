@@ -1,0 +1,171 @@
+<div class="row">
+
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+      <div class="mb-4">
+        
+        <label for="username" class="form-label">Nombre de usuario:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          name="username"
+          formControlName="username"
+        />
+      </div>
+
+      
+    
+      
+      <div
+        *ngIf="(registerForm.get('username')?.touched && registerForm.get('username')?.errors?.['required'])"
+        class="alert alert-danger"
+      >
+        Este campo es obligatorio.
+      </div>
+    
+      
+      <div
+        *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.errors?.['minlength']"
+        class="alert alert-danger"
+      >
+        Nombre de usuario debe ser de al menos
+        {{ registerForm.get('username')?.errors?.['minlength']?.requiredLength }}
+        caracteres.
+      </div>
+    
+      
+      <div
+        *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.errors?.['maxlength']"
+        class="alert alert-danger"
+      >
+        Nombre de usuario debe ser como máximo
+        {{ registerForm.get('username')?.errors?.['maxlength']?.requiredLength }}
+        caracteres.
+      </div>
+    
+      <div class="mb-4">
+        
+        <label for="rut" class="form-label">RUT (11.111.111-1):</label>
+        <input
+          type="text"
+          class="form-control"
+          id="rut"
+          name="rut"
+          formControlName="rut"
+        />
+      </div>
+
+      <div
+        *ngIf="(registerForm.get('rut')?.touched && registerForm.get('rut')?.errors?.['required'])"
+        class="alert alert-danger"
+      >
+        Este campo es obligatorio.
+      </div>
+
+      <div
+        *ngIf="(registerForm.get('rut')?.touched && registerForm.get('rut')?.errors?.['pattern'])"
+        class="alert alert-danger"
+      >
+        Formato inválido.
+      </div>
+
+
+      <div class="mb-4">
+        <label for="email" class="form-label">Correo electrónico:</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          formControlName="email"
+        />
+      </div>
+    
+      
+      <div
+        *ngIf="(registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['required'])"
+        class="alert alert-danger"
+      >
+        Este campo es obligatorio.
+      </div>
+    
+      
+      <div
+        *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['maxlength']"
+        class="alert alert-danger"
+      >
+        Correo debe ser como máximo
+        {{ registerForm.get('email')?.errors?.['maxlength']?.requiredLength }}
+        caracteres.
+      </div>
+    
+      
+      <div
+        *ngIf="(registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['email'])"
+        class="alert alert-danger"
+      >
+        Debe ser un correo válido.
+      </div>
+    
+      
+      <div class="mb-4">
+        <label for="password" class="form-label">Contraseña:</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password1"
+          [(ngModel)]="password1"
+        />
+      </div>
+    
+      
+      <div
+        *ngIf="(registerForm.get('password1')?.touched && registerForm.get('password1')?.errors?.['required'])"
+        class="alert alert-danger"
+      >
+        Este campo es obligatorio.
+      </div>
+    
+      
+      <div
+        *ngIf="registerForm.get('password1')?.touched && registerForm.get('password1')?.errors?.['minlength']"
+        class="alert alert-danger"
+      >
+        Contraseña debe ser de al menos
+        {{ registerForm.get('password1')?.errors?.['minlength']?.requiredLength }}
+        caracteres.
+      </div>
+    
+      
+      <div
+        *ngIf="registerForm.get('password1')?.touched && registerForm.get('password1')?.errors?.['maxlength']"
+        class="alert alert-danger"
+      >
+        Contraseña debe ser como máximo
+        {{ registerForm.get('password1')?.errors?.['maxlength']?.requiredLength }}
+        caracteres.
+      </div>
+    
+      
+      <div class="mb-4">
+        <label for="repassword" class="form-label">Repita contraseña:</label>
+        <input
+          type="password"
+          class="form-control"
+          id="repassword"
+          formControlName="password2"
+          [(ngModel)]="password2"
+        />
+      </div>
+    
+      <div *ngIf="!equalPass()" class="alert alert-danger">
+        Las contraseñas no coinciden.
+      </div>
+    
+      <button type="submit" class="btn btn-dark" [disabled]="registerForm.get('username')?.errors?.['required'] || registerForm.get('username')?.errors?.['minlength'] || registerForm.get('username')?.errors?.['maxlength'] || registerForm.get('email')?.errors?.['required'] ||registerForm.get('email')?.errors?.['maxlenght'] || registerForm.get('email')?.errors?.['email'] || registerForm.get('password1')?.errors?.['required'] || registerForm.get('password1')?.errors?.['minlength'] || registerForm.get('password1')?.errors?.['maxlength'] || equalPass()==false || registerForm.get('rut')?.errors?.['required'] || registerForm.get('rut')?.errors?.['pattern']">
+        Registrarse
+      </button>
+    </form>
+  </div>

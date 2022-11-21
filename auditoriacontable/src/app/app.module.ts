@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,11 +13,15 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { IngresarComponent } from './ingresar/ingresar.component';
+import { RegistrarComponent } from './registrar/registrar.component';
 
 const appRoutes : Routes = [
-  {path:'',component:Inicio2Component},
+  {path:'',component:IngresarComponent},
   {path:'comprobantes',component:ComprobantesComponent},
-  {path:'inicio',component:InicioComponent}
+  {path:'inicio',component:InicioComponent},
+  {path:'inicio2',component:Inicio2Component},
+  {path:'registrar',component:RegistrarComponent}
 ]
 
 
@@ -26,12 +31,15 @@ const appRoutes : Routes = [
     CabeceraComponent,
     InicioComponent,
     ComprobantesComponent,
-    Inicio2Component
+    Inicio2Component,
+    IngresarComponent,
+    RegistrarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore())
