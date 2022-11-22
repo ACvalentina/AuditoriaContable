@@ -1,0 +1,102 @@
+<ng-container *ngIf="show">
+  <div class="modal modalc">
+    <div class="modalc-content">
+      <div class="modal-header modalc-header">
+        <h1 class="modal-title fs-5">NUEVO COMPROBANTE</h1>
+        <button (click)="show = false" type="reset" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modalc-body">
+        <!-- CASILLAS ENCABEZADO -->
+        <form id="formulario" autocomplete="off">
+          <div class="row g-7">
+            <div class="col-sm-2">
+              <label class="form-label">Nº de comprobante</label>
+              <input id="numComprobante" type="text" class="form-control" placeholder="Nº Automático" disabled>
+            </div>
+            <div class="col-sm-2">
+              <label class="form-label">Tipo de comprobante</label>
+              <select id="tipoComprobante" class="form-select">
+                <option selected>Seleccionar</option>
+                <option value="1">Opción 1</option>
+                <option value="2">Opción 2</option>
+                <option value="3">Opción 3</option>
+              </select>
+            </div>
+            <div class="col-sm-2">
+              <label class="form-label">Fecha</label>
+              <input id="fecha" type="date" class="form-control">
+            </div>
+            <div class="col-sm-2">
+              <label class="form-label">Tipo de documento</label>
+              <select id="tipoDocumento" class="form-select">
+                <option selected>Seleccionar</option>
+                <option value="1">Opción 1</option>
+                <option value="2">Opción 2</option>
+                <option value="3">Opción 3</option>
+              </select>
+            </div>
+            <div class="col-sm-4">
+              <label class="form-label">Glosa</label>
+              <input id="glosa" type="text" class="form-control">
+            </div>
+          </div>
+          <br />
+          <br />
+          <!-- TABLA CUENTAS -->
+          <table class="table">
+            <thead>
+              <tr class="color-tabla">
+                <th scope="col"></th>
+                <th scope="col">CUENTA</th>
+                <th scope="col">GLOSA</th>
+                <th scope="col">CENTRO DE COSTOS</th>
+                <th scope="col">SUCURSAL</th>
+                <th scope="col">DEBE ($)</th>
+                <th scope="col">HABER ($)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>
+                  <!-- <input id="nombreCuenta" (keyup)="onkeyup($event)" type="text" class="form-control" placeholder="Escribir cuenta...">
+                  <ul *ngFor="let cuenta of results | async">
+                    <li>{{ cuenta.nombre }}</li>
+                  </ul> -->
+                  <input id="nombreCuenta" type="text" class="form-control" list="listaCuentas">
+                  <datalist id="listaCuentas">
+                    <option value="Reajuste">
+                    <option value="Documentos">
+                    <option value="Cheques">
+                    <option value="Fondos">
+                  </datalist>
+                </td>
+                <td><input type="text" class="form-control" placeholder="Glosa" disabled></td>
+                <td><input type="text" class="form-control"></td>
+                <td><input type="text" class="form-control"></td>
+                <td><input type="text" class="form-control"></td>
+                <td><input type="text" class="form-control"></td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <br /> 
+          <br />
+          <!-- BOTONES GUARDAR Y CANCELAR -->
+          <div class="modal-footer">
+            <button type="button" class="btn color-boton">Guardar</button>
+            <button (click)="show = false" type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-container>
