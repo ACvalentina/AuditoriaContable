@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FirebaseErrorService } from '../services/firebase-error.service';
 
 @Component({
   selector: 'app-ingresar',
@@ -9,45 +12,42 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class IngresarComponent implements OnInit {
 
   
-  registerForm!: FormGroup;
-  password1: any;
+  login: FormGroup;
+  email:any;
+  password1:any;
   
-  constructor(private readonly fb: FormBuilder) {}
-  
-    ngOnInit(): void {
-      this.registerForm = this.initForm();
-    }
-  
-    onSubmit(): void {
-      console.log('Form ->');
-      console.log(this.registerForm.value);
-    }
-  
-    initForm(): FormGroup {
-      return this.fb.group({
-        username: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(6),
-            Validators.maxLength(18),
-          ],
+  constructor(private readonly fb: FormBuilder, private afAuth: AngularFireAuth, private router:Router, private firebaseError: FirebaseErrorService) {
+    this.login = this.fb.group({
+      email: [
+        '',
+        [Validators.required, Validators.email],
+      ],
+      password1: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(15),
         ],
-        email: [
-          '',
-          [Validators.required, Validators.email],
-        ],
-        password1: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(8),
-            Validators.maxLength(15),
-          ],
-        ],
-      });
+      ],
+    })
     }
-    
-  
-    
+  ngOnInit(): void {
   }
+
+  logueo():void{
+    const email = this.login.value.email;
+    const password1 = this.login.value.password1;
+
+    this.afAuth.signInWithEmailAndPassword(email,password1).then(()=>{
+      this.router.navigate(['/inicio2']);
+    }).catch((error)=>
+      alert(this.firebaseError.firebaseError(error.code))
+    )
+  }
+
+}
+  
+  
+  
+  

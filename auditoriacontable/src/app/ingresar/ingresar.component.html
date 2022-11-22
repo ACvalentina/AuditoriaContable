@@ -1,7 +1,7 @@
 <div class="row">
 
 
-  <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+  <form (ngSubmit)="logueo()" [formGroup]="login">
       
     
       
@@ -18,14 +18,14 @@
     
       
       <div
-        *ngIf="(registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['required'])"
+        *ngIf="(login.get('email')?.touched && login.get('email')?.errors?.['required'])"
         class="alert alert-danger"
       >
         Este campo es obligatorio.
       </div>    
       
       <div
-        *ngIf="(registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['email'])"
+        *ngIf="(login.get('email')?.touched && login.get('email')?.errors?.['email'])"
         class="alert alert-danger"
       >
         Debe ser un correo válido.
@@ -45,7 +45,7 @@
     
       
       <div
-        *ngIf="(registerForm.get('password1')?.touched && registerForm.get('password1')?.errors?.['required'])"
+        *ngIf="(login.get('password1')?.touched && login.get('password1')?.errors?.['required'])"
         class="alert alert-danger"
       >
         Este campo es obligatorio.
@@ -53,21 +53,21 @@
     
       
       <div
-        *ngIf="registerForm.get('password1')?.touched && registerForm.get('password1')?.errors?.['minlength']"
+        *ngIf="login.get('password1')?.touched && login.get('password1')?.errors?.['minlength']"
         class="alert alert-danger"
       >
         Contraseña debe ser de al menos
-        {{ registerForm.get('password1')?.errors?.['minlength']?.requiredLength }}
+        {{ login.get('password1')?.errors?.['minlength']?.requiredLength }}
         caracteres.
       </div>
     
       
       <div
-        *ngIf="registerForm.get('password1')?.touched && registerForm.get('password1')?.errors?.['maxlength']"
+        *ngIf="login.get('password1')?.touched && login.get('password1')?.errors?.['maxlength']"
         class="alert alert-danger"
       >
         Contraseña debe ser como máximo
-        {{ registerForm.get('password1')?.errors?.['maxlength']?.requiredLength }}
+        {{ login.get('password1')?.errors?.['maxlength']?.requiredLength }}
         caracteres.
       </div>
     
@@ -79,7 +79,7 @@
       <br>
       <br>
     
-      <button type="submit" class="btn btn-dark" [disabled]="(registerForm.get('email')?.errors?.['required'] || registerForm.get('email')?.errors?.['email'] || registerForm.get('password1')?.errors?.['required'] || registerForm.get('password1')?.errors?.['minlength'] || registerForm.get('password1')?.errors?.['maxlength'])" href="/inicio2">
+      <button type="submit" class="btn btn-dark" [disabled]="(login.get('email')?.errors?.['required'] || login.get('email')?.errors?.['email'] || login.get('password1')?.errors?.['required'] || login.get('password1')?.errors?.['minlength'] || login.get('password1')?.errors?.['maxlength'])" href="/inicio2">
         Ingresar
       </button>
     </form>

@@ -1,7 +1,7 @@
 <div class="row">
 
 
-  <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+  <form (ngSubmit)="registrar()" [formGroup]="registrarUsuario">
       <div class="mb-4">
         
         <label for="username" class="form-label">Nombre de usuario:</label>
@@ -18,7 +18,7 @@
     
       
       <div
-        *ngIf="(registerForm.get('username')?.touched && registerForm.get('username')?.errors?.['required'])"
+        *ngIf="(registrarUsuario.get('username')?.touched && registrarUsuario.get('username')?.errors?.['required'])"
         class="alert alert-danger"
       >
         Este campo es obligatorio.
@@ -26,21 +26,21 @@
     
       
       <div
-        *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.errors?.['minlength']"
+        *ngIf="registrarUsuario.get('username')?.touched && registrarUsuario.get('username')?.errors?.['minlength']"
         class="alert alert-danger"
       >
         Nombre de usuario debe ser de al menos
-        {{ registerForm.get('username')?.errors?.['minlength']?.requiredLength }}
+        {{ registrarUsuario.get('username')?.errors?.['minlength']?.requiredLength }}
         caracteres.
       </div>
     
       
       <div
-        *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.errors?.['maxlength']"
+        *ngIf="registrarUsuario.get('username')?.touched && registrarUsuario.get('username')?.errors?.['maxlength']"
         class="alert alert-danger"
       >
         Nombre de usuario debe ser como máximo
-        {{ registerForm.get('username')?.errors?.['maxlength']?.requiredLength }}
+        {{ registrarUsuario.get('username')?.errors?.['maxlength']?.requiredLength }}
         caracteres.
       </div>
     
@@ -57,18 +57,22 @@
       </div>
 
       <div
-        *ngIf="(registerForm.get('rut')?.touched && registerForm.get('rut')?.errors?.['required'])"
+        *ngIf="(registrarUsuario.get('rut')?.touched && registrarUsuario.get('rut')?.errors?.['required'])"
         class="alert alert-danger"
       >
         Este campo es obligatorio.
       </div>
 
+      
+
       <div
-        *ngIf="(registerForm.get('rut')?.touched && registerForm.get('rut')?.errors?.['pattern'])"
+        *ngIf="(registrarUsuario.get('rut')?.touched && registrarUsuario.get('rut')?.errors?.['pattern'])"
         class="alert alert-danger"
       >
         Formato inválido.
       </div>
+
+      
 
 
       <div class="mb-4">
@@ -84,7 +88,7 @@
     
       
       <div
-        *ngIf="(registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['required'])"
+        *ngIf="(registrarUsuario.get('email')?.touched && registrarUsuario.get('email')?.errors?.['required'])"
         class="alert alert-danger"
       >
         Este campo es obligatorio.
@@ -92,17 +96,17 @@
     
       
       <div
-        *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['maxlength']"
+        *ngIf="registrarUsuario.get('email')?.touched && registrarUsuario.get('email')?.errors?.['maxlength']"
         class="alert alert-danger"
       >
         Correo debe ser como máximo
-        {{ registerForm.get('email')?.errors?.['maxlength']?.requiredLength }}
+        {{ registrarUsuario.get('email')?.errors?.['maxlength']?.requiredLength }}
         caracteres.
       </div>
     
       
       <div
-        *ngIf="(registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['email'])"
+        *ngIf="(registrarUsuario.get('email')?.touched && registrarUsuario.get('email')?.errors?.['email'])"
         class="alert alert-danger"
       >
         Debe ser un correo válido.
@@ -122,7 +126,7 @@
     
       
       <div
-        *ngIf="(registerForm.get('password1')?.touched && registerForm.get('password1')?.errors?.['required'])"
+        *ngIf="(registrarUsuario.get('password1')?.touched && registrarUsuario.get('password1')?.errors?.['required'])"
         class="alert alert-danger"
       >
         Este campo es obligatorio.
@@ -130,21 +134,21 @@
     
       
       <div
-        *ngIf="registerForm.get('password1')?.touched && registerForm.get('password1')?.errors?.['minlength']"
+        *ngIf="registrarUsuario.get('password1')?.touched && registrarUsuario.get('password1')?.errors?.['minlength']"
         class="alert alert-danger"
       >
         Contraseña debe ser de al menos
-        {{ registerForm.get('password1')?.errors?.['minlength']?.requiredLength }}
+        {{ registrarUsuario.get('password1')?.errors?.['minlength']?.requiredLength }}
         caracteres.
       </div>
     
       
       <div
-        *ngIf="registerForm.get('password1')?.touched && registerForm.get('password1')?.errors?.['maxlength']"
+        *ngIf="registrarUsuario.get('password1')?.touched && registrarUsuario.get('password1')?.errors?.['maxlength']"
         class="alert alert-danger"
       >
         Contraseña debe ser como máximo
-        {{ registerForm.get('password1')?.errors?.['maxlength']?.requiredLength }}
+        {{ registrarUsuario.get('password1')?.errors?.['maxlength']?.requiredLength }}
         caracteres.
       </div>
     
@@ -164,8 +168,15 @@
         Las contraseñas no coinciden.
       </div>
     
-      <button type="submit" class="btn btn-dark" [disabled]="registerForm.get('username')?.errors?.['required'] || registerForm.get('username')?.errors?.['minlength'] || registerForm.get('username')?.errors?.['maxlength'] || registerForm.get('email')?.errors?.['required'] ||registerForm.get('email')?.errors?.['maxlenght'] || registerForm.get('email')?.errors?.['email'] || registerForm.get('password1')?.errors?.['required'] || registerForm.get('password1')?.errors?.['minlength'] || registerForm.get('password1')?.errors?.['maxlength'] || equalPass()==false || registerForm.get('rut')?.errors?.['required'] || registerForm.get('rut')?.errors?.['pattern']">
+      <a href="">¿Ya tienes cuenta?, Ingresa aquí</a>
+
+      <br>
+      <br>
+      
+      <button type="submit" class="btn btn-dark" [disabled]="registrarUsuario.get('username')?.errors?.['required'] || registrarUsuario.get('username')?.errors?.['minlength'] || registrarUsuario.get('username')?.errors?.['maxlength'] || registrarUsuario.get('email')?.errors?.['required'] ||registrarUsuario.get('email')?.errors?.['maxlenght'] || registrarUsuario.get('email')?.errors?.['email'] || registrarUsuario.get('password1')?.errors?.['required'] || registrarUsuario.get('password1')?.errors?.['minlength'] || registrarUsuario.get('password1')?.errors?.['maxlength'] || equalPass()==false || registrarUsuario.get('rut')?.errors?.['required'] || registrarUsuario.get('rut')?.errors?.['pattern']">
         Registrarse
       </button>
+
+      
     </form>
   </div>

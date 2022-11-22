@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { AngularFireModule } from '@angular/fire/compat';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CabeceraComponent } from './cabecera/cabecera.component';
@@ -15,6 +16,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { IngresarComponent } from './ingresar/ingresar.component';
 import { RegistrarComponent } from './registrar/registrar.component';
+
 
 const appRoutes : Routes = [
   {path:'',component:IngresarComponent},
@@ -40,6 +42,7 @@ const appRoutes : Routes = [
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore())
