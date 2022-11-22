@@ -15,6 +15,12 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { FirestoreModule} from '@angular/fire/firestore'
 import 'firebase/firestore';
 import { ModalComponent } from './modal/modal.component';
+import { CuentasService } from './cuentas.service'
+import { FIREBASE_OPTIONS } from '@angular/fire/compat'
+import { AngularMaterialModule } from './angular-material.module'
+
+
+
 
 
 const appRoutes : Routes = [
@@ -42,8 +48,13 @@ const appRoutes : Routes = [
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     FirestoreModule,
+    AngularMaterialModule,
+    
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    CuentasService,
+    {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

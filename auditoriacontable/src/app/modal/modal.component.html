@@ -15,11 +15,9 @@
             </div>
             <div class="col-sm-2">
               <label class="form-label">Tipo de comprobante</label>
-              <select id="tipoComprobante" class="form-select">
-                <option selected>Seleccionar</option>
-                <option value="1">Opción 1</option>
-                <option value="2">Opción 2</option>
-                <option value="3">Opción 3</option>
+              <select id="selectedComprobante" class="form-select" [selectedIndex]="selectedComprobante" (selectionchange)="onChangeCom($event)">
+                <option value="null" disabled>Seleccionar</option>
+                <option value="comprobante" *ngFor="let comprobante of comprobantes | async">{{comprobante.nombre}}</option>
               </select>
             </div>
             <div class="col-sm-2">
@@ -28,11 +26,9 @@
             </div>
             <div class="col-sm-2">
               <label class="form-label">Tipo de documento</label>
-              <select id="tipoDocumento" class="form-select">
-                <option selected>Seleccionar</option>
-                <option value="1">Opción 1</option>
-                <option value="2">Opción 2</option>
-                <option value="3">Opción 3</option>
+              <select id="selectedDocumento" class="form-select" [selectedIndex]="selectedDocumento" (selectionchange)="onChangeDoc($event)">
+                <option value="null" disabled>Seleccionar</option>
+                <option value="documento" *ngFor="let documento of documentos | async">{{documento.nombre}}</option>
               </select>
             </div>
             <div class="col-sm-4">
@@ -59,17 +55,15 @@
               <tr>
                 <th scope="row">1</th>
                 <td>
-                  <!-- <input id="nombreCuenta" (keyup)="onkeyup($event)" type="text" class="form-control" placeholder="Escribir cuenta...">
-                  <ul *ngFor="let cuenta of results | async">
-                    <li>{{ cuenta.nombre }}</li>
-                  </ul> -->
-                  <input id="nombreCuenta" type="text" class="form-control" list="listaCuentas">
+                  <input id="nombreCuenta"  onkeyup="javascript:this.value=this.value.toUpperCase()" type="text" #searchInput (keyup)="search(searchInput.value)" class="form-control input" list="listaCuentas">
                   <datalist id="listaCuentas">
-                    <option value="Reajuste">
-                    <option value="Documentos">
-                    <option value="Cheques">
-                    <option value="Fondos">
+                    <option *ngFor="let cuenta of cuentas$ | async" value={{cuenta.data.nombre}}>
                   </datalist>
+                  <!-- <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let cuenta of cuentas$ | async" [value]="cuenta">
+                      {{cuenta}}
+                    </mat-option>
+                  </mat-autocomplete> -->
                 </td>
                 <td><input type="text" class="form-control" placeholder="Glosa" disabled></td>
                 <td><input type="text" class="form-control"></td>
@@ -77,7 +71,7 @@
                 <td><input type="text" class="form-control"></td>
                 <td><input type="text" class="form-control"></td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <th scope="row">2</th>
                 <td></td>
                 <td></td>
@@ -85,7 +79,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
           <br /> 
