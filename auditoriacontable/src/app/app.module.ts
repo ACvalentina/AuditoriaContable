@@ -42,6 +42,7 @@ const appRoutes : Routes = [
     Inicio2Component,
     IngresarComponent,
     RegistrarComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
