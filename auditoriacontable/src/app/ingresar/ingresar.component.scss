@@ -1,0 +1,15 @@
+.row{
+    display: flex;
+    margin-top: 60px;
+    margin-bottom: 100px;
+    background-color: white;
+    margin-left: 80px;
+    margin-right: 80px;
+    .btn{
+        background-color: rgb(73, 197, 79);
+    }
+    .btn:hover{
+        background-color: white;
+        color: black ;
+    }
+}

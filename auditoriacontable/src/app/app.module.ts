@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
+import { AngularFireModule } from '@angular/fire/compat';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CabeceraComponent } from './cabecera/cabecera.component';
@@ -18,15 +20,16 @@ import { ModalComponent } from './modal/modal.component';
 import { CuentasService } from './cuentas.service'
 import { FIREBASE_OPTIONS } from '@angular/fire/compat'
 import { AngularMaterialModule } from './angular-material.module'
-
-
-
+import { IngresarComponent } from './ingresar/ingresar.component';
+import { RegistrarComponent } from './registrar/registrar.component';
 
 
 const appRoutes : Routes = [
-  {path:'',component:Inicio2Component},
+  {path:'',component:IngresarComponent},
   {path:'comprobantes',component:ComprobantesComponent},
-  {path:'inicio',component:InicioComponent}
+  {path:'inicio',component:InicioComponent},
+  {path:'inicio2',component:Inicio2Component},
+  {path:'registrar',component:RegistrarComponent}
 ]
 
 
@@ -37,19 +40,22 @@ const appRoutes : Routes = [
     InicioComponent,
     ComprobantesComponent,
     Inicio2Component,
-    ModalComponent,
-  
+    IngresarComponent,
+    RegistrarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     FirestoreModule,
     AngularMaterialModule,
     
+    provideFirestore(() => getFirestore())
   ],
   providers: [
     CuentasService,

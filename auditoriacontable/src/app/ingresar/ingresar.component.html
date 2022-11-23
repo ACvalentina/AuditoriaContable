@@ -1,0 +1,86 @@
+<div class="row">
+
+
+  <form (ngSubmit)="logueo()" [formGroup]="login">
+      
+    
+      
+      <div class="mb-4">
+        <label for="email" class="form-label">Correo electrónico:</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          formControlName="email"
+        />
+      </div>
+    
+      
+      <div
+        *ngIf="(login.get('email')?.touched && login.get('email')?.errors?.['required'])"
+        class="alert alert-danger"
+      >
+        Este campo es obligatorio.
+      </div>    
+      
+      <div
+        *ngIf="(login.get('email')?.touched && login.get('email')?.errors?.['email'])"
+        class="alert alert-danger"
+      >
+        Debe ser un correo válido.
+      </div>
+    
+      
+      <div class="mb-4">
+        <label for="password" class="form-label">Contraseña:</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password1"
+          [(ngModel)]="password1"
+        />
+      </div>
+    
+      
+      <div
+        *ngIf="(login.get('password1')?.touched && login.get('password1')?.errors?.['required'])"
+        class="alert alert-danger"
+      >
+        Este campo es obligatorio.
+      </div>
+    
+      
+      <div
+        *ngIf="login.get('password1')?.touched && login.get('password1')?.errors?.['minlength']"
+        class="alert alert-danger"
+      >
+        Contraseña debe ser de al menos
+        {{ login.get('password1')?.errors?.['minlength']?.requiredLength }}
+        caracteres.
+      </div>
+    
+      
+      <div
+        *ngIf="login.get('password1')?.touched && login.get('password1')?.errors?.['maxlength']"
+        class="alert alert-danger"
+      >
+        Contraseña debe ser como máximo
+        {{ login.get('password1')?.errors?.['maxlength']?.requiredLength }}
+        caracteres.
+      </div>
+    
+      
+      
+
+      <a href="/registrar">¿No tienes cuenta?, Regístrate.</a>
+
+      <br>
+      <br>
+    
+      <button type="submit" class="btn btn-dark" [disabled]="(login.get('email')?.errors?.['required'] || login.get('email')?.errors?.['email'] || login.get('password1')?.errors?.['required'] || login.get('password1')?.errors?.['minlength'] || login.get('password1')?.errors?.['maxlength'])" href="/inicio2">
+        Ingresar
+      </button>
+    </form>
+  </div>
