@@ -68,12 +68,15 @@ export class RegistrarComponent implements OnInit {
       const password1 = this.registrarUsuario.value.password1;
 
       this.afAuth.createUserWithEmailAndPassword(email,password1).then(()=> {
-        this.router.navigate(['']);
-
+        this.router.navigate(['/verificado']);
+        this.verificarCorreo();
       }).catch((error)=>{
         alert(this.firebaseError.firebaseError(error.code))
       });
     }
     
+    verificarCorreo(){
+      this.afAuth.currentUser.then(user=> user?.sendEmailVerification())
+    }
     
   }

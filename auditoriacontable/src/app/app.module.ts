@@ -22,6 +22,9 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat'
 import { AngularMaterialModule } from './angular-material.module'
 import { IngresarComponent } from './ingresar/ingresar.component';
 import { RegistrarComponent } from './registrar/registrar.component';
+import { RecuperarComponent } from './recuperar/recuperar.component';
+import { VerificadoComponent } from './verificado/verificado.component';
+import { ContrasenaRecuperadaComponent } from './contrasena-recuperada/contrasena-recuperada.component';
 
 
 const appRoutes : Routes = [
@@ -29,7 +32,10 @@ const appRoutes : Routes = [
   {path:'comprobantes',component:ComprobantesComponent},
   {path:'inicio',component:InicioComponent},
   {path:'inicio2',component:Inicio2Component},
-  {path:'registrar',component:RegistrarComponent}
+  {path:'registrar',component:RegistrarComponent},
+  {path:'recuperar',component:RecuperarComponent},
+  {path:'verificado',component:VerificadoComponent},
+  {path:'contrasena-recuperada',component:ContrasenaRecuperadaComponent},
 ]
 
 
@@ -42,7 +48,8 @@ const appRoutes : Routes = [
     Inicio2Component,
     IngresarComponent,
     RegistrarComponent,
-    ModalComponent
+    ModalComponent,
+    RecuperarComponent
   ],
   imports: [
     BrowserModule,

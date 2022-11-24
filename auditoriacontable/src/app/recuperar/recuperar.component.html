@@ -1,0 +1,46 @@
+<div class="row">
+
+
+    <form (ngSubmit)="recuperacion()" [formGroup]="recuperar">
+        
+      
+        
+        <div class="mb-4">
+          <label for="email" class="form-label">Correo electrónico:</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            formControlName="email"
+          />
+        </div>
+      
+        
+        <div
+          *ngIf="(recuperar.get('email')?.touched && recuperar.get('email')?.errors?.['required'])"
+          class="alert alert-danger"
+        >
+          Este campo es obligatorio.
+        </div>    
+        
+        <div
+          *ngIf="(recuperar.get('email')?.touched && recuperar.get('email')?.errors?.['email'])"
+          class="alert alert-danger"
+        >
+          Debe ser un correo válido.
+        </div>
+      
+        
+      
+        <button type="submit" class="btn btn-dark" [disabled]="(recuperar.get('email')?.errors?.['required'] || recuperar.get('email')?.errors?.['email'])">
+          Recuperar
+        </button>
+  
+        <br>
+        <br>
+  
+  
+  
+      </form>
+    </div>
