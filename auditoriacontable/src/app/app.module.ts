@@ -25,13 +25,14 @@ import { RegistrarComponent } from './registrar/registrar.component';
 import { RecuperarComponent } from './recuperar/recuperar.component';
 import { VerificadoComponent } from './verificado/verificado.component';
 import { ContrasenaRecuperadaComponent } from './contrasena-recuperada/contrasena-recuperada.component';
+import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard'; 
 
 
 const appRoutes : Routes = [
   {path:'',component:IngresarComponent},
   {path:'comprobantes',component:ComprobantesComponent},
-  {path:'inicio',component:InicioComponent},
-  {path:'inicio2',component:Inicio2Component},
+  {path:'inicio',component:InicioComponent, ...canActivate(()=>redirectUnauthorizedTo(['']))},
+  {path:'inicio2',component:Inicio2Component, ...canActivate(()=>redirectUnauthorizedTo(['']))},
   {path:'registrar',component:RegistrarComponent},
   {path:'recuperar',component:RecuperarComponent},
   {path:'verificado',component:VerificadoComponent},
