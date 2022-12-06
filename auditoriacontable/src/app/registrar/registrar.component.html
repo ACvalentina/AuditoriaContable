@@ -60,9 +60,9 @@
       </div>
 
       
-      <div *ngIf="!verificarRut()" class="alert alert-danger">
+      <!--<div *ngIf="!verificarRut()" class="alert alert-danger">
         Dígito Verificador incorrecto.
-      </div>
+      </div>-->
 
       <div
         *ngIf="(registrarUsuario.get('rut')?.touched && registrarUsuario.get('rut')?.errors?.['pattern'])"
@@ -161,7 +161,7 @@
       <br>
       <br>
       
-      <button type="submit" class="btn btn-dark" [disabled]="registrarUsuario.get('username')?.errors?.['required'] || registrarUsuario.get('username')?.errors?.['minlength'] || registrarUsuario.get('username')?.errors?.['maxlength'] || registrarUsuario.get('email')?.errors?.['required'] ||registrarUsuario.get('email')?.errors?.['maxlenght'] || registrarUsuario.get('email')?.errors?.['email'] || registrarUsuario.get('password1')?.errors?.['required'] || registrarUsuario.get('password1')?.errors?.['minlength'] || registrarUsuario.get('password1')?.errors?.['maxlength'] || equalPass()==false || registrarUsuario.get('rut')?.errors?.['required'] || registrarUsuario.get('rut')?.errors?.['pattern'] || verificarRut()==false">
+      <button type="submit" class="btn btn-dark" [disabled]="registrarUsuario.get('username')?.errors?.['required'] || registrarUsuario.get('username')?.errors?.['minlength'] || registrarUsuario.get('username')?.errors?.['maxlength'] || registrarUsuario.get('email')?.errors?.['required'] ||registrarUsuario.get('email')?.errors?.['maxlenght'] || registrarUsuario.get('email')?.errors?.['email'] || registrarUsuario.get('password1')?.errors?.['required'] || registrarUsuario.get('password1')?.errors?.['minlength'] || registrarUsuario.get('password1')?.errors?.['maxlength'] || equalPass()==false || registrarUsuario.get('rut')?.errors?.['required'] || registrarUsuario.get('rut')?.errors?.['pattern']">
         Registrarse
       </button>
 

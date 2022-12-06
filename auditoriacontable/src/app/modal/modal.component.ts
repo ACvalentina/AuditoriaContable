@@ -139,14 +139,14 @@ export class ModalComponent implements OnInit, AfterViewInit {
   //FUNCIONES DEBE Y HABER
 
   getValDebe(indice){
-    //this.valordebe = this.formComprobante.get('datosCuenta').value[indice].debeInput
-    /* let arrayDebe = new Array(indice)
+    this.valordebe = this.formComprobante.get('datosCuenta').value[indice].debeInput
+    let arrayDebe = new Array(indice)
     for(var i=0; i<arrayDebe.length; i++){
       this.valordebe = this.formComprobante.get('datosCuenta').value[indice].debeInput
       arrayDebe[i] = this.valordebe
     }
     console.log('el valor debe es: '+arrayDebe)
-    return arrayDebe */
+    return arrayDebe
 
     /* var array = Array
     for(var i = 0; i < 2; i++){
