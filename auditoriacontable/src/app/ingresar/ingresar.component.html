@@ -79,8 +79,18 @@
       <br>
       <br>
     
-      <button type="submit" class="btn btn-dark" [disabled]="(login.get('email')?.errors?.['required'] || login.get('email')?.errors?.['email'] || login.get('password1')?.errors?.['required'] || login.get('password1')?.errors?.['minlength'] || login.get('password1')?.errors?.['maxlength'])" href="/inicio2">
+      <button type="submit" class="btn btn-dark" [disabled]="(login.get('email')?.errors?.['required'] || login.get('email')?.errors?.['email'] || login.get('password1')?.errors?.['required'] || login.get('password1')?.errors?.['minlength'] || login.get('password1')?.errors?.['maxlength'])">
         Ingresar
       </button>
+
+      <br>
+      <br>
+
+      <a href="/recuperar">Recuperar contraseña</a>      
+      
+      <br>
+      <br>
+
+
     </form>
   </div>

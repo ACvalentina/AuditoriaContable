@@ -29,9 +29,7 @@
         *ngIf="registrarUsuario.get('username')?.touched && registrarUsuario.get('username')?.errors?.['minlength']"
         class="alert alert-danger"
       >
-        Nombre de usuario debe ser de al menos
-        {{ registrarUsuario.get('username')?.errors?.['minlength']?.requiredLength }}
-        caracteres.
+        Nombre de usuario debe ser de al menos 6 caracteres.
       </div>
     
       
@@ -39,9 +37,7 @@
         *ngIf="registrarUsuario.get('username')?.touched && registrarUsuario.get('username')?.errors?.['maxlength']"
         class="alert alert-danger"
       >
-        Nombre de usuario debe ser como máximo
-        {{ registrarUsuario.get('username')?.errors?.['maxlength']?.requiredLength }}
-        caracteres.
+        Nombre de usuario debe ser como máximo 18 caracteres.
       </div>
     
       <div class="mb-4">
@@ -64,6 +60,9 @@
       </div>
 
       
+      <div *ngIf="!verificarRut()" class="alert alert-danger">
+        Dígito Verificador incorrecto.
+      </div>
 
       <div
         *ngIf="(registrarUsuario.get('rut')?.touched && registrarUsuario.get('rut')?.errors?.['pattern'])"
@@ -95,15 +94,6 @@
       </div>
     
       
-      <div
-        *ngIf="registrarUsuario.get('email')?.touched && registrarUsuario.get('email')?.errors?.['maxlength']"
-        class="alert alert-danger"
-      >
-        Correo debe ser como máximo
-        {{ registrarUsuario.get('email')?.errors?.['maxlength']?.requiredLength }}
-        caracteres.
-      </div>
-    
       
       <div
         *ngIf="(registrarUsuario.get('email')?.touched && registrarUsuario.get('email')?.errors?.['email'])"
@@ -137,9 +127,7 @@
         *ngIf="registrarUsuario.get('password1')?.touched && registrarUsuario.get('password1')?.errors?.['minlength']"
         class="alert alert-danger"
       >
-        Contraseña debe ser de al menos
-        {{ registrarUsuario.get('password1')?.errors?.['minlength']?.requiredLength }}
-        caracteres.
+        Contraseña debe ser de al menos 8 caracteres.
       </div>
     
       
@@ -147,9 +135,7 @@
         *ngIf="registrarUsuario.get('password1')?.touched && registrarUsuario.get('password1')?.errors?.['maxlength']"
         class="alert alert-danger"
       >
-        Contraseña debe ser como máximo
-        {{ registrarUsuario.get('password1')?.errors?.['maxlength']?.requiredLength }}
-        caracteres.
+        Contraseña debe ser como máximo de 15 caracteres.
       </div>
     
       
@@ -167,13 +153,15 @@
       <div *ngIf="!equalPass()" class="alert alert-danger">
         Las contraseñas no coinciden.
       </div>
+
+      
     
       <a href="">¿Ya tienes cuenta?, Ingresa aquí</a>
 
       <br>
       <br>
       
-      <button type="submit" class="btn btn-dark" [disabled]="registrarUsuario.get('username')?.errors?.['required'] || registrarUsuario.get('username')?.errors?.['minlength'] || registrarUsuario.get('username')?.errors?.['maxlength'] || registrarUsuario.get('email')?.errors?.['required'] ||registrarUsuario.get('email')?.errors?.['maxlenght'] || registrarUsuario.get('email')?.errors?.['email'] || registrarUsuario.get('password1')?.errors?.['required'] || registrarUsuario.get('password1')?.errors?.['minlength'] || registrarUsuario.get('password1')?.errors?.['maxlength'] || equalPass()==false || registrarUsuario.get('rut')?.errors?.['required'] || registrarUsuario.get('rut')?.errors?.['pattern']">
+      <button type="submit" class="btn btn-dark" [disabled]="registrarUsuario.get('username')?.errors?.['required'] || registrarUsuario.get('username')?.errors?.['minlength'] || registrarUsuario.get('username')?.errors?.['maxlength'] || registrarUsuario.get('email')?.errors?.['required'] ||registrarUsuario.get('email')?.errors?.['maxlenght'] || registrarUsuario.get('email')?.errors?.['email'] || registrarUsuario.get('password1')?.errors?.['required'] || registrarUsuario.get('password1')?.errors?.['minlength'] || registrarUsuario.get('password1')?.errors?.['maxlength'] || equalPass()==false || registrarUsuario.get('rut')?.errors?.['required'] || registrarUsuario.get('rut')?.errors?.['pattern'] || verificarRut()==false">
         Registrarse
       </button>
 

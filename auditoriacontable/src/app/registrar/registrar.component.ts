@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { addDoc, collection, Firestore } from '@angular/fire/firestore';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FirebaseErrorService } from '../services/firebase-error.service';
@@ -19,7 +20,7 @@ export class RegistrarComponent implements OnInit {
   password1: any;
   password2: any;
   
-  constructor(private readonly fb: FormBuilder, private afAuth: AngularFireAuth, private router:Router, private firebaseError : FirebaseErrorService) {
+  constructor(private readonly fb: FormBuilder, private afAuth: AngularFireAuth, private router:Router, private firebaseError : FirebaseErrorService, private firestore:Firestore) {
     this.registrarUsuario = this.fb.group({
       username: [
         '',
@@ -38,7 +39,10 @@ export class RegistrarComponent implements OnInit {
       ],
       email: [
         '',
-        [Validators.required, Validators.email],
+        [
+          Validators.required,
+          Validators.email,
+        ],
       ],
       password1: [
         '',
@@ -66,14 +70,75 @@ export class RegistrarComponent implements OnInit {
     registrar(){
       const email = this.registrarUsuario.value.email;
       const password1 = this.registrarUsuario.value.password1;
+      const username = this.registrarUsuario.value.username;
+      const rut = this.registrarUsuario.value.rut;
 
       this.afAuth.createUserWithEmailAndPassword(email,password1).then(()=> {
-        this.router.navigate(['']);
-
+        this.router.navigate(['/verificado']);
+        this.verificarCorreo();
+        this.guardarUsuario(username,rut,email);
+        
       }).catch((error)=>{
         alert(this.firebaseError.firebaseError(error.code))
       });
     }
     
+    verificarCorreo(){
+      this.afAuth.currentUser.then(user=> user?.sendEmailVerification())
+    }
+    
+    async guardarUsuario(username:any,rut:any,email:any){
+      const id = await this.getUid();
+      const obj = Object.assign({
+        "UID":id,
+        "Username":username,
+        "RUT":rut,
+        "Correo electrónico":email
+      })
+      const ref = collection(this.firestore,'Usuarios');
+      return addDoc(ref,obj);
+    }
+
+    async getUid(){
+      const user = await this.afAuth.currentUser;
+      if(user === null){
+        return null;
+      }
+      else{
+        return user?.uid;
+      }
+    }
+
+    verificarRut():boolean{ //meter async await en otra funcion para llamar al rut
+      const rut = this.rut;
+      const dv = rut[rut.length-1]
+      const rut_sin_dv = rut.slice(0,rut.length-2)
+      const rut_sin_puntos = (rut_sin_dv.replace('.','').replace('.',''))
+
+      let dv_final;
+      let sum = 0;
+      let mul = 2;
+      let i = rut.length-4
+      while (i--) {
+          sum = sum + Number(rut_sin_puntos.charAt(i)) * mul;
+          if (mul % 7 === 0) {
+            mul = 2;
+          } else {
+            mul++;
+          }
+        }
+
+      const res = sum % 11;
+
+      if (res === 0) {
+        dv_final = '0';
+      } else if (res === 1) {
+        dv_final = 'k';
+      }
+      else{
+          dv_final = `${11 - res}`;
+      }
+      return (dv===dv_final)
+    }
     
   }
