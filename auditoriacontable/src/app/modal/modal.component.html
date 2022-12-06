@@ -1,4 +1,4 @@
-<!-- <script type="text/javascript" src="lib.js"></script> -->
+<script type="text/javascript" src="lib.js"></script>
 <ng-container *ngIf="show">
   <div class="modal modalc">
     <div class="modalc-content">
@@ -185,7 +185,7 @@
                 <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col"></th>
-                <th scope="col" colspan="2" style="background-color: #a6dfc1; font-size: 18px;">SALDO: ${{totalresta}}</th>
+                <th scope="col" colspan="2" style="background-color: #a6dfc1; font-size: 18px;">SALDO: $ {{totalresta}}</th>
                 <th scope="col"></th>
               </tr>
               <tr class="color-tabla">
@@ -230,14 +230,12 @@
                         <input type="text" class="form-control" formControlName="sucursalInput">
                       </td>
                       <td>
-                        <input id="codigouno" type="number" class="form-control" formControlName="debeInput" >
+                        <input id="codigouno" type="number" class="form-control" formControlName="debeInput" value="{{getValDebe()}}" >
                       </td>
                       <td >
-                        <input id="codigodos" type="number" class="form-control" formControlName="haberInput">
+                        <input id="codigodos" type="number" class="form-control" formControlName="haberInput" value="{{getValHaber()}}">
                       </td>
-                      {{getValDebe(i)}}
-                      {{getValHaber(i)}}
-                      {{getResta(totaldebe, totalhaber)}}
+                      {{getResta()}}
                     </tr>
                   </ng-container>
                 </ng-container>

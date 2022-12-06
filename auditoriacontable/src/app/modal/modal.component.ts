@@ -137,73 +137,16 @@ export class ModalComponent implements OnInit, AfterViewInit {
   }
   
   //FUNCIONES DEBE Y HABER
-
-  getValDebe(indice){
-    this.valordebe = this.formComprobante.get('datosCuenta').value[indice].debeInput
-    let arrayDebe = new Array(indice)
-    for(var i=0; i<arrayDebe.length; i++){
-      this.valordebe = this.formComprobante.get('datosCuenta').value[indice].debeInput
-      arrayDebe[i] = this.valordebe
-    }
-    console.log('el valor debe es: '+arrayDebe)
-    return arrayDebe
-
-    /* var array = Array
-    for(var i = 0; i < 2; i++){
-      array[i] = this.formComprobante.get('datosCuenta').value[indice].debeInput
-    }
-    for(var i=0; i<array.length; i++){
-      console.log('valores: '+array[i])
-    } */
-     
+  getValDebe(){
+    this.valordebe = this.formComprobante.value.datosCuenta.reduce((acc, debe) => acc + (debe.debeInput || 0), 0)
   }
 
-  /* sumaDebe(){
-    this.totaldebe = 0
-    for(let i=0; i<this.valordebe.length; i++){
-      this.totaldebe = this.totaldebe + this.valordebe[i]
-    }
-    return this.totaldebe
-  } */
-
-  getValHaber(indice){
-    //this.valorhaber = this.formComprobante.get('datosCuenta').value[indice].haberInput
-    //console.log('el total haber es: '+this.totalhaber)
-    /* let arrayHaber = new Array(indice)
-    for(var i=0; i<arrayHaber.length; i++){
-      this.valorhaber = this.formComprobante.get('datosCuenta').value[indice].haberInput
-      arrayHaber[i] = this.valorhaber
-    }
-    console.log('el valor debe es: '+arrayHaber)
-    return arrayHaber  */
-
+  getValHaber(){
+    this.valorhaber = this.formComprobante.value.datosCuenta.reduce((acc, haber) => acc + (haber.haberInput || 0), 0)
   }
 
-  getResta(totaldebe, totalhaber){
+  getResta(){
     this.totalresta = this.valordebe - this.valorhaber
-
-    //console.log('el resta total es: '+this.totalresta)
-   
-    /* this.totaldebe = this.formComprobante.reduce((acc, debe) => acc + (debe.debeInput || 0), 0)
-    console.log('el total debe es: '+this.totaldebe)
-    this.totalhaber = this.formComprobante.reduce((acc, haber) => acc + (haber.haberInput || 0), 0)
-    console.log('el total haber es: '+this.totalhaber)
-    this.totalresta = this.totaldebe - this.totalhaber
-    console.log('la resta total es: '+this.totalresta)
-    return this.totalresta */
-
-    /* this.totaldebe = this.formComprobante.map(obj => obj.debeInput)
-    console.log('mapeo del debe: ' +this.totaldebe)
-    this.totalhaber = this.formComprobante.map(obj => obj.haberInput)
-    console.log('mapeo del haber: ' +this.totalhaber)
-    this.totalresta = this.totaldebe - this.totalhaber
-    console.log('total resta: ' +this.totalresta)
-    return   this.totalresta */
-
-    /* console.log(this.formComprobante)  //aparecen todos los datos
-    console.log(this.datosCuenta)   //aparece solo el array de la tabla
-    console.log(this.formComprobante.datosCuenta) //aparece undefined
-     */
   }
   
   
