@@ -190,6 +190,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
       })
       const ref = collection(this.firestore,'Comprobantes');
       addDoc(ref,obj)
+      this.show = false
     }
     else{
       Swal.fire({
@@ -200,7 +201,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
     })
     }
     
-    this.show = false
+    
   }
 
   onSubmit(){
