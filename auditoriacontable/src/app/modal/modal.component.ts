@@ -29,12 +29,8 @@ export class ModalComponent implements OnInit, AfterViewInit {
   textoGlosa = ""
   formulario = new FormControl('')
   totalresta
-  totaldebe 
-  totalhaber 
   valordebe
   valorhaber
-  debe
-  haber
 
   
   

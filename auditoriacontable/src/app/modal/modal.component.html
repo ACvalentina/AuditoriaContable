@@ -1,4 +1,4 @@
-<script type="text/javascript" src="lib.js"></script>
+
 <ng-container *ngIf="show">
   <div class="modal modalc">
     <div class="modalc-content">
@@ -230,10 +230,10 @@
                         <input type="text" class="form-control" formControlName="sucursalInput">
                       </td>
                       <td>
-                        <input id="codigouno" type="number" class="form-control" formControlName="debeInput" value="{{getValDebe()}}" >
+                        <input id="codigouno" type="number" class="form-control" formControlName="debeInput" value={{getValDebe()}}>
                       </td>
                       <td >
-                        <input id="codigodos" type="number" class="form-control" formControlName="haberInput" value="{{getValHaber()}}">
+                        <input id="codigodos" type="number" class="form-control" formControlName="haberInput" value={{getValHaber()}}>
                       </td>
                       {{getResta()}}
                     </tr>
