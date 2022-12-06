@@ -176,14 +176,25 @@ export class ModalComponent implements OnInit, AfterViewInit {
   }
 
   //FUNCIÓN PARA VENTANA GUARDADO
-  showGuardar(){
-    Swal.fire({
-      title: '¡Guardado!',
-      text: 'Se ha guardado un nuevo comprobante',
-      icon: 'success',
-      allowOutsideClick: false,
-      
-    })
+  Guardar(){
+
+    if(this.totalresta==0){
+      Swal.fire({
+            title: '¡Guardado!',
+            text: 'Se ha guardado un nuevo comprobante',
+            icon: 'success',
+            allowOutsideClick: false,
+      })
+    }
+    else{
+      Swal.fire({
+        title: '¡Cuidado!',
+        text: 'El debe y haber deben ser iguales',
+        icon: 'warning',
+        allowOutsideClick: false,
+  })
+    }
+    
     this.show = false
   }
   onSubmit(){
