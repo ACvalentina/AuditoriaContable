@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, KeyValueDiffers, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import 'firebase/firestore'
-import { Observable, BehaviorSubject, of  } from 'rxjs'
+import { Observable, BehaviorSubject } from 'rxjs'
 import { CuentasService } from '../cuentas.service'
-import { FormArray, FormBuilder, FormControl, FormControlName, FormGroup,  } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { arrayRemove, Index } from 'firebase/firestore';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { addDoc, collection, Firestore } from '@angular/fire/firestore';
 
 
 
@@ -35,7 +36,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
   
   
 
-  constructor(private cuentasSvc: CuentasService, private formBuilder: FormBuilder, private cd: ChangeDetectorRef) {
+  constructor(private afAuth: AngularFireAuth, private firestore:Firestore,private cuentasSvc: CuentasService, private formBuilder: FormBuilder, private cd: ChangeDetectorRef) {
     
     this.formComprobante = this.formBuilder.group({
       numComprobante: [''],
@@ -172,19 +173,47 @@ export class ModalComponent implements OnInit, AfterViewInit {
   }
 
   //FUNCIÓN PARA VENTANA GUARDADO
-  showGuardar(){
-    Swal.fire({
-      title: '¡Guardado!',
-      text: 'Se ha guardado un nuevo comprobante',
-      icon: 'success',
-      allowOutsideClick: false,
-      
+  async Guardar(){
+
+    if(this.totalresta==0){
+      Swal.fire({
+            title: '¡Guardado!',
+            text: 'Se ha guardado un nuevo comprobante',
+            icon: 'success',
+            allowOutsideClick: false,
+      })
+      const id = await this.getUid();
+      const info =  this.formComprobante.value;
+      const obj = Object.assign({
+        "UID":id,
+        "Info":info
+      })
+      const ref = collection(this.firestore,'Comprobantes');
+      addDoc(ref,obj)
+    }
+    else{
+      Swal.fire({
+        title: '¡Cuidado!',
+        text: 'El debe y haber deben ser iguales',
+        icon: 'warning',
+        allowOutsideClick: false,
     })
+    }
+    
     this.show = false
   }
+
   onSubmit(){
     console.log(this.formComprobante.value) //no olvidar conectar a la base de datos
   }
   
-
+  async getUid(){
+    const user = await this.afAuth.currentUser;
+    if(user === null){
+      return null;
+    }
+    else{
+      return user?.uid;
+    }
+  }
 }
