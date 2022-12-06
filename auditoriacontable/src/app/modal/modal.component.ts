@@ -158,6 +158,8 @@ export class ModalComponent implements OnInit, AfterViewInit {
           'No se ha guardado ningún comprobante',
           'info'
         )
+        //this.formComprobante.reset()
+        
       }
     })
   }
@@ -185,7 +187,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
     else{
       Swal.fire({
         title: '¡Cuidado!',
-        text: 'El debe y haber deben ser iguales',
+        text: 'El debe y haber tienen ser iguales',
         icon: 'warning',
         allowOutsideClick: false,
     })
