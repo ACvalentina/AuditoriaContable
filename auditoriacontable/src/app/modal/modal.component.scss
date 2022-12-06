@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: center;
   overflow-y: auto;
-  z-index: 999999;
+  z-index: 2;
   display: flex;
   background: rgba(0,0,0,0.5);
   padding: 16px;
@@ -39,11 +39,33 @@
 .color-boton{
   background-color: #049c84;
   color: white;
+  
 }
 
 .color-tabla{
     background-color: #d7efeb;
     text-align: center;
-  }
+    
+}
+
+.color {
+  background-color: #3d4054;
+  color: white;
+}
+.color :hover{
+  opacity: 0.75;
+}
+.btn-icono{
+  color: #3d4054;
+  
+}
+.btn-icono :hover{
+  opacity: 0.75;
+}
+.table th{
+  text-align: center;
+  vertical-align: middle;
+}
+
 
 

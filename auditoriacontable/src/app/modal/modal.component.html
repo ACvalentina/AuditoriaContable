@@ -1,3 +1,4 @@
+<!-- <script type="text/javascript" src="lib.js"></script> -->
 <ng-container *ngIf="show">
   <div class="modal modalc">
     <div class="modalc-content">
@@ -7,7 +8,7 @@
       </div>
       <div class="modalc-body">
         <!-- CASILLAS ENCABEZADO -->
-        <form id="formulario" autocomplete="off">
+        <!-- <form  autocomplete="off">
           <div class="row g-7">
             <div class="col-sm-2">
               <label class="form-label">Nº de comprobante</label>
@@ -33,64 +34,240 @@
             </div>
             <div class="col-sm-4">
               <label class="form-label">Glosa</label>
-              <input id="glosa" type="text" class="form-control">
+              <input [formControl]="formulario" formControlName="campoUno" (keypress)="sendText($event)" type="text" class="form-control" [(ngModel)] = "textoGlosa">
             </div>
           </div>
           <br />
           <br />
-          <!-- TABLA CUENTAS -->
-          <table class="table">
+           TABLA CUENTAS 
+          <table class="table table-borderless">
             <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col" colspan="2" style="background-color: #a6dfc1; font-size: 18px;">SALDO: ${{--valordebe - --valorhaber}}</th>
+                <th scope="col"></th>
+              </tr>
               <tr class="color-tabla">
+                <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col">CUENTA</th>
                 <th scope="col">GLOSA</th>
                 <th scope="col">CENTRO DE COSTOS</th>
                 <th scope="col">SUCURSAL</th>
-                <th scope="col">DEBE ($)</th>
-                <th scope="col">HABER ($)</th>
+                <th scope="col">DEBE ($)<p>Total debe: $</p></th>
+                <th scope="col">HABER ($)<p>Total haber: $0000</p></th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+               FILA QUE APARECE AL ABRIR EL FORMULARIO 
+               <tr>
                 <th scope="row">1</th>
+                <td></td>
                 <td>
-                  <input id="nombreCuenta"  onkeyup="javascript:this.value=this.value.toUpperCase()" type="text" #searchInput (keyup)="search(searchInput.value)" class="form-control input" list="listaCuentas">
+                  <input id="nombreCuenta" onkeyup="javascript:this.value=this.value.toUpperCase()" 
+                  type="text" #searchInput (keyup)="search(searchInput.value)" class="form-control input" 
+                  list="listaCuentas">
                   <datalist id="listaCuentas">
-                    <option *ngFor="let cuenta of cuentas$ | async" value={{cuenta.data.nombre}}>
+                    <option *ngFor="let cuenta of cuentas$ | async" value={{cuenta.data.id}}{{cuenta.data.nombre}}>
                   </datalist>
-                  <!-- <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let cuenta of cuentas$ | async" [value]="cuenta">
-                      {{cuenta}}
-                    </mat-option>
-                  </mat-autocomplete> -->
                 </td>
-                <td><input type="text" class="form-control" placeholder="Glosa" disabled></td>
-                <td><input type="text" class="form-control"></td>
-                <td><input type="text" class="form-control"></td>
-                <td><input type="text" class="form-control"></td>
-                <td><input type="text" class="form-control"></td>
+                <td ><input type="text" class="form-control" [formControl]="formulario" formControlName="campoDos" value={{textoGlosa}}></td>
+                <td ><input type="text" class="form-control"></td>
+                <td ><input type="text" class="form-control"></td>
+                <td>
+                  <input [(ngModel)]="valordebe" name="valordebe" (keypress)="onlyNum($event)" type="number" class="form-control" >
+                </td>
+                <td>
+                  <input [(ngModel)]="valorhaber" name="valorhaber" (keypress)="onlyNum($event)" type="number" class="form-control" >
+                </td>
+              </tr> 
+
+               FILA QUE APARECE AL PULSAR EL + 
+              <tr *ngFor="let fila of filasTablas;let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>
+                  <a class="btn-icono" (click)="deleteRow(i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                      <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                    </svg>
+                  </a>
+                </td>
+                <td [(ngModel)]="fila.cuentaTabla">
+                  <input id="nombreCuenta" onkeyup="javascript:this.value=this.value.toUpperCase()" 
+                  type="text" #searchInput (keyup)="search(searchInput.value)" class="form-control input" 
+                  list="listaCuentas">
+                    <datalist id="listaCuentas">
+                      <option *ngFor="let cuenta of cuentas$ | async" value={{cuenta.data.id}}{{cuenta.data.nombre}}>
+                    </datalist>
+                </td>
+                <td [(ngModel)]="fila.glosa">
+                  <input type="text" class="form-control" [formControl]="formulario" formControlName="campoDos" value={{textoGlosa}} >
+                </td>
+                <td [(ngModel)]="fila.centroCostos"><input type="text" class="form-control"></td>
+                <td [(ngModel)]="fila.sucursal"><input type="text" class="form-control"></td>
+                <td [(ngModel)]="fila.debe">
+                  <input [(ngModel)]="valordebe" name="valordebe" (keypress)="onlyNum($event)" type="text" class="form-control" >
+                </td>
+                <td [(ngModel)]="fila.haber">
+                  <input [(ngModel)]="valorhaber" name="valorhaber" (keypress)="onlyNum($event)" type="text" class="form-control">
+                </td>
               </tr>
-              <!-- <tr>
-                <th scope="row">2</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr> -->
+              <a class="btn-icono" (click)="addRow()" (click)="sendText($event)"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                </svg>
+              </a>
+              <br />
+              <br />
+               <tr class="color-tabla">
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr> 
             </tbody>
           </table>
           <br /> 
-          <br />
-          <!-- BOTONES GUARDAR Y CANCELAR -->
+           BOTONES GUARDAR Y CANCELAR 
           <div class="modal-footer">
-            <button type="button" class="btn color-boton">Guardar</button>
-            <button (click)="show = false" type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button (click)="showGuardar()" type="button" class="btn color-boton">Guardar</button>
+            <button type="reset" class="btn color">Limpiar todo</button>
+            <button (click)="showCierre()" type="button" class="btn color">Cancelar</button>
+          </div>
+        </form> -->
+        <form [formGroup]="formComprobante" (ngSubmit)="onSubmit()" autocomplete="off">
+          <div class="row g-7">
+            <div class="col-sm-2">
+              <label class="form-label">Nº de comprobante</label>
+              <input id="numComprobante" type="text" class="form-control" placeholder="Nº Automático" disabled>
+            </div>
+            <div class="col-sm-2">
+              <label class="form-label">Tipo de comprobante</label>
+              <select id="selectedComprobante" class="form-select" [selectedIndex]="selectedComprobante" (selectionchange)="onChangeCom($event)" formControlName="tipoComprobante">
+                <option value="null" disabled>Seleccionar</option>
+                <option *ngFor="let comprobante of comprobantes | async">{{comprobante.nombre}}</option>
+              </select>
+            </div>
+            <div class="col-sm-2">
+              <label class="form-label">Fecha</label>
+              <input id="fecha" type="date" class="form-control" formControlName="fecha">
+            </div>
+            <div class="col-sm-2">
+              <label class="form-label">Tipo de documento</label>
+              <select id="selectedDocumento" class="form-select" [selectedIndex]="selectedDocumento" (selectionchange)="onChangeDoc($event)" formControlName="tipoDocumento">
+                <option value="null" disabled>Seleccionar</option>
+                <option *ngFor="let documento of documentos | async">{{documento.nombre}}</option>
+              </select>
+            </div>
+            <div class="col-sm-4">
+              <label class="form-label">Glosa</label>
+              <input type="text" class="form-control" (input)="sendText()" [formControl]="formulario" formControlName="glosaIndex" >
+            </div>
+          </div>
+          <br />
+          <br />
+          <!-- TABLA CUENTAS -->
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col" colspan="2" style="background-color: #a6dfc1; font-size: 18px;">SALDO: ${{totalresta}}</th>
+                <th scope="col"></th>
+              </tr>
+              <tr class="color-tabla">
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">CUENTA</th>
+                <th scope="col">GLOSA</th>
+                <th scope="col">CENTRO DE COSTOS</th>
+                <th scope="col">SUCURSAL</th>
+                <th scope="col">DEBE ($)<p>Total debe: ${{valordebe}}  </p></th>
+                <th scope="col">HABER ($)<p>Total haber: ${{valorhaber}}</p></th>
+              </tr>
+            </thead>
+            <tbody>
+               <!-- FILA QUE APARECE EN LA TABLA  -->
+              <ng-container formArrayName="datosCuenta">
+                <ng-container *ngFor="let tabla of datosCuenta.controls; let i = index;">
+                  <ng-container >
+                    <tr [formGroupName]="i">
+                      <th scope="row">{{i+1}}</th>
+                      <td>
+                        <a class="btn-icono" (click)="removeDatosCuenta(i)">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                          </svg>
+                        </a>
+                      </td>
+                      <td>
+                        <input formControlName="cuentaInput" id="nombreCuenta" onkeyup="javascript:this.value=this.value.toUpperCase()" 
+                          type="text" #searchInput (keyup)="search(searchInput.value)" class="form-control input" list="listaCuentas">
+                          <datalist id="listaCuentas">
+                            <option *ngFor="let cuenta of cuentas$ | async" value={{cuenta.data.id}}{{cuenta.data.nombre}}>
+                          </datalist>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" [formControl]="formulario" formControlName="glosaInput" >
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" formControlName="centroInput">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" formControlName="sucursalInput">
+                      </td>
+                      <td>
+                        <input id="codigouno" type="number" class="form-control" formControlName="debeInput" >
+                      </td>
+                      <td >
+                        <input id="codigodos" type="number" class="form-control" formControlName="haberInput">
+                      </td>
+                      {{getValDebe(i)}}
+                      {{getValHaber(i)}}
+                      {{getResta(totaldebe, totalhaber)}}
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              <!-- <a class="btn-icono" (click)="addDatosCuenta()"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                </svg>
+              </a> -->
+             
+            </tbody>
+          </table>
+          <button type="button" class="btn color" (click)="addDatosCuenta()">Añadir fila</button>
+          <br />
+          
+          {{formComprobante.value | json}}
+          <br />
+          
+     
+          <!-- BOTONES GUARDAR,LIMPIAR Y CANCELAR -->
+          <div class="modal-footer">
+            <button (click)="showGuardar()" type="button" class="btn color-boton">Guardar</button>
+            <button type="reset" class="btn color">Limpiar todo</button>
+            <button (click)="showCierre()" type="button" class="btn color">Cancelar</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </ng-container>
+
+
+

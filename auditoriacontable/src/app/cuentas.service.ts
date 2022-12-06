@@ -14,9 +14,12 @@ export class CuentasService {
   private comprobantes$: AngularFirestoreCollection<any>
   private currentDocumento = new BehaviorSubject<any>(null)
   private documentos$: AngularFirestoreCollection<any>
+  private newComproCollect: AngularFirestoreCollection<any>
 
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore) {
+    this.newComproCollect = db.collection<any>('NuevoComprobante')
+   }
 
   // LISTA DE PLAN DE CUENTAS CON AUTOCOMPLETADO
   getCuentas(start: BehaviorSubject<string>): Observable<any[]> {
@@ -55,6 +58,11 @@ export class CuentasService {
   }
   set selectedDocumento(value){
     this.currentDocumento.next(value)
+  }
+
+  //FUNCION PARA GUARDAR UN COMPROBANTE
+  guardarComprobante(newComprobante): void{
+    this.newComproCollect.add(newComprobante)
   }
 
 

@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +22,7 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat'
 import { AngularMaterialModule } from './angular-material.module'
 import { IngresarComponent } from './ingresar/ingresar.component';
 import { RegistrarComponent } from './registrar/registrar.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2'
 
 
 const appRoutes : Routes = [
@@ -55,12 +56,14 @@ const appRoutes : Routes = [
     provideFirestore(() => getFirestore()),
     FirestoreModule,
     AngularMaterialModule,
-    
-    provideFirestore(() => getFirestore())
+    FormsModule,
+    provideFirestore(() => getFirestore()),
+    SweetAlert2Module
   ],
   providers: [
     CuentasService,
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
+    {provide: DEFAULT_CURRENCY_CODE, useValue: 'CLP'}
   ],
   bootstrap: [AppComponent],
 })
