@@ -26,17 +26,16 @@ export class ModalComponent implements OnInit, AfterViewInit {
   selectedComprobante: Observable<any>
   documentos: Observable<any[]>
   selectedDocumento: Observable<any>
-
-  textoGlosa = ""
-  formulario = new FormControl('')
   totalresta
   valordebe
   valorhaber
 
-  
-  
-
-  constructor(private afAuth: AngularFireAuth, private firestore:Firestore,private cuentasSvc: CuentasService, private formBuilder: FormBuilder, private cd: ChangeDetectorRef) {
+  constructor(
+    private afAuth: AngularFireAuth, 
+    private firestore:Firestore,
+    private cuentasSvc: CuentasService, 
+    private formBuilder: FormBuilder, 
+    private cd: ChangeDetectorRef) {
     
     this.formComprobante = this.formBuilder.group({
       numComprobante: [''],
@@ -53,7 +52,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
     this.cuentas$ = this.cuentasSvc.getCuentas(this.startAt)
     this.comprobantes = this.cuentasSvc.comprobantes
     this.documentos = this.cuentasSvc.documentos
-    //this.addDatosCuenta()    
+       
   }
   ngAfterViewInit(): void {
     this.cd.detectChanges()
@@ -82,7 +81,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
   addDatosCuenta(){
     const tabla = this.formBuilder.group({
       cuentaInput: (''),
-      glosaInput: (''),
+      glosaInput: [this.formComprobante.value.glosaIndex],
       centroInput: (''),
       sucursalInput: (''),
       debeInput: [''],
@@ -97,7 +96,6 @@ export class ModalComponent implements OnInit, AfterViewInit {
 
   //FUNCION DE BUSQUEDA DEL AUTOCOMPLETADO
   search(searchText){
-    
     this.startAt.next(searchText)
   }
 
@@ -107,11 +105,6 @@ export class ModalComponent implements OnInit, AfterViewInit {
   }
   onChangeDoc(documento){
     this.cuentasSvc.selectedDocumento = documento
-  }
-
-  //FUNCION DEL INPUT GLOSA
-  sendText(){
-    this.formComprobante.get('glosaIndex').setValue(this.formComprobante.get('glosaInput').value) 
   }
 
   //FUNCION SOLO NÚMEROS EN DEBE Y HABER
@@ -146,8 +139,6 @@ export class ModalComponent implements OnInit, AfterViewInit {
     this.totalresta = this.valordebe - this.valorhaber
   }
   
-  
-
   //FUNCIÓN PARA VENTANA DE CONFIRMAR CIERRE
   showCierre(){
     Swal.fire({
@@ -169,7 +160,6 @@ export class ModalComponent implements OnInit, AfterViewInit {
         )
       }
     })
-    
   }
 
   //FUNCIÓN PARA VENTANA GUARDADO
