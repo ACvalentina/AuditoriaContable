@@ -4,7 +4,10 @@
   <form (ngSubmit)="logueo()" [formGroup]="login">
       
     
-      
+      <h3 style="text-align: center;">Inicio de sesión</h3>
+      <br>
+      <br>
+      <br>
       <div class="mb-4">
         <label for="email" class="form-label">Correo electrónico:</label>
         <input
@@ -31,6 +34,7 @@
         Debe ser un correo válido.
       </div>
     
+      <br>
       
       <div class="mb-4">
         <label for="password" class="form-label">Contraseña:</label>
@@ -74,8 +78,9 @@
       
       
 
-      <a href="/registrar">¿No tienes cuenta?, Regístrate.</a>
+      <a href="/recuperar">Recuperar contraseña</a>
 
+      <br>
       <br>
       <br>
     
@@ -85,12 +90,19 @@
 
       <br>
       <br>
-
-      <a href="/recuperar">Recuperar contraseña</a>      
+      <br>
+      <br>
       
-      <br>
-      <br>
 
+      <a href="/registrar" style="float: right;">¿No tienes cuenta?, Regístrate.</a>    
+      
 
     </form>
+
+    
   </div>
+  <img class="img-fluid float-end fondo" src="./fondologin.jpg">
+  
+
+  
+ 
