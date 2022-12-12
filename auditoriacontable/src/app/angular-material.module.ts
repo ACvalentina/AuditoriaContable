@@ -36,15 +36,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   imports: [
     CommonModule,
-    MatAutocompleteModule,
-    MatInputModule,
-    MatButtonModule
-    
+ 
   ],
   exports: [
-    MatAutocompleteModule,
-    MatInputModule,
-    MatButtonModule
+
   ],
 })
 export class AngularMaterialModule { }

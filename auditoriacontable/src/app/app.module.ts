@@ -26,7 +26,9 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2'
 import { RecuperarComponent } from './recuperar/recuperar.component';
 import { VerificadoComponent } from './verificado/verificado.component';
 import { ContrasenaRecuperadaComponent } from './contrasena-recuperada/contrasena-recuperada.component';
-import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard'; 
+import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { HotTableModule } from '@handsontable/angular';
+import { registerAllModules } from 'handsontable/registry'
 
 
 const appRoutes : Routes = [
@@ -39,6 +41,8 @@ const appRoutes : Routes = [
   {path:'verificado',component:VerificadoComponent},
   {path:'contrasena-recuperada',component:ContrasenaRecuperadaComponent},
 ]
+
+registerAllModules()
 
 
 @NgModule({
@@ -63,10 +67,10 @@ const appRoutes : Routes = [
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     FirestoreModule,
-    AngularMaterialModule,
     FormsModule,
     provideFirestore(() => getFirestore()),
-    SweetAlert2Module
+    SweetAlert2Module,
+    HotTableModule
   ],
   providers: [
     CuentasService,
