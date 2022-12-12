@@ -28,7 +28,9 @@ import { VerificadoComponent } from './verificado/verificado.component';
 import { ContrasenaRecuperadaComponent } from './contrasena-recuperada/contrasena-recuperada.component';
 import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { HotTableModule } from '@handsontable/angular';
-import { registerAllModules } from 'handsontable/registry'
+import { registerAllModules } from 'handsontable/registry';
+import { MenuComponent } from './menu/menu.component'
+import { SidebarModule } from 'ng-sidebar'
 
 
 const appRoutes : Routes = [
@@ -55,7 +57,8 @@ registerAllModules()
     IngresarComponent,
     RegistrarComponent,
     ModalComponent,
-    RecuperarComponent
+    RecuperarComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,8 @@ registerAllModules()
     FormsModule,
     provideFirestore(() => getFirestore()),
     SweetAlert2Module,
-    HotTableModule
+    HotTableModule,
+    SidebarModule
   ],
   providers: [
     CuentasService,

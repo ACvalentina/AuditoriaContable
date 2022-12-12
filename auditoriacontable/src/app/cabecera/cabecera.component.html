@@ -1,19 +1,27 @@
 <div class="container-fluid" role="banner">
 
+    <!-- MENÚ LATERAL -->
+ 
+      <a class="icon" (click)="menu.toggleSidebar()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+      </a>
+      
+
     <!--LOGO-->
     <a href="/inicio2">
        <img
         width="200"
         alt="Logo Auditoría Contable SpA"
-        src="https://acontable.appzone.cl/assets/img/logo-acontable.png"
-    /> 
+        src="https://acontable.appzone.cl/assets/img/logo-acontable.png"/> 
     </a>
 
     <!--ICONOS-->
-    <div id="iconos">
+    <div id="iconos" style="margin-left: 550px;">
 
       <!--ICONO HOME-->
-      <a class=" icon" href="/inicio2" >
+      <a class="icon" href="/inicio2" >
         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
           <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z"/>
         </svg>
@@ -26,4 +34,8 @@
       
     </div>   
 </div>
+
+<!-- VENTANA NUEVO COMPROBANTE -->
 <app-modal #modal></app-modal>
+
+<app-menu #menu></app-menu>

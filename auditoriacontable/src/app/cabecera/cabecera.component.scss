@@ -4,7 +4,7 @@
     height: 80px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    // justify-content: space-between;
     background-color: #93d3c9;
     font-weight: 600;
     font-family: Didact Gothic;
@@ -17,6 +17,7 @@
         color: #3d4054;
         align-self: center;
         margin: 20px;
+        cursor: pointer;
     }
   }
   .color {
@@ -26,7 +27,6 @@
     font-family: Didact Gothic;
     
   }
-
 
 
  
