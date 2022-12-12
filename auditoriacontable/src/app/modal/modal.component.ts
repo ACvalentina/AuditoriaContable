@@ -2,7 +2,7 @@ import { Component, OnInit,ChangeDetectorRef, AfterViewInit } from '@angular/cor
 import 'firebase/firestore'
 import { Observable, BehaviorSubject } from 'rxjs'
 import { CuentasService } from '../cuentas.service'
-import { FormArray, FormBuilder, FormControl } from '@angular/forms';
+import { FormArray, FormBuilder} from '@angular/forms';
 import Swal from 'sweetalert2';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { addDoc, collection, Firestore } from '@angular/fire/firestore';

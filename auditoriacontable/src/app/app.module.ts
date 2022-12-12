@@ -29,8 +29,10 @@ import { ContrasenaRecuperadaComponent } from './contrasena-recuperada/contrasen
 import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { HotTableModule } from '@handsontable/angular';
 import { registerAllModules } from 'handsontable/registry';
-import { MenuComponent } from './menu/menu.component'
-import { SidebarModule } from 'ng-sidebar'
+import { MenuComponent } from './menu/menu.component';
+import { SidebarModule } from 'ng-sidebar';
+import { ContabilidadComprasComponent } from './contabilidad-compras/contabilidad-compras.component';
+import { CommonModule } from '@angular/common';
 
 
 const appRoutes : Routes = [
@@ -42,6 +44,7 @@ const appRoutes : Routes = [
   {path:'recuperar',component:RecuperarComponent},
   {path:'verificado',component:VerificadoComponent},
   {path:'contrasena-recuperada',component:ContrasenaRecuperadaComponent},
+  {path:'contabilidad-compras',component:ContabilidadComprasComponent,...canActivate(()=>redirectUnauthorizedTo(['']))}
 ]
 
 registerAllModules()
@@ -61,6 +64,7 @@ registerAllModules()
     MenuComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
