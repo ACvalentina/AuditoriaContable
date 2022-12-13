@@ -1,0 +1,34 @@
+<input type="file" (change)="readExcel($event)">
+
+<br>
+<br>
+
+<div>
+    <h3 style="text-align:center;">VENTAS</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">AÑO</th>
+                <th scope="col">MES</th>
+                <th scope="col">Tipo Documento</th>
+                <th scope="col">Total Documentos</th>
+                <th scope="col">Monto Exento</th>
+                <th scope="col">Monto Neto</th>
+                <th scope="col">Monto IVA</th>
+                <th scope="col">Monto Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let x of excelData">
+                <td>{{x.Anio}}</td>
+                <td>{{x.Mes}}</td>
+                <td>{{x.Tipo_Documento}}</td>
+                <td>{{x.Total_Documentos}}</td>
+                <td>{{x.Monto_Exento}}</td>
+                <td>{{x.Monto_Neto}}</td>
+                <td>{{x.Monto_IVA}}</td>
+                <td>{{x.Monto_Total}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

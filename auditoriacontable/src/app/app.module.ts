@@ -33,6 +33,7 @@ import { MenuComponent } from './menu/menu.component';
 import { SidebarModule } from 'ng-sidebar';
 import { ContabilidadComprasComponent } from './contabilidad-compras/contabilidad-compras.component';
 import { CommonModule } from '@angular/common';
+import { ContabilidadVentasComponent } from './contabilidad-ventas/contabilidad-ventas.component';
 
 
 const appRoutes : Routes = [
@@ -44,7 +45,8 @@ const appRoutes : Routes = [
   {path:'recuperar',component:RecuperarComponent},
   {path:'verificado',component:VerificadoComponent},
   {path:'contrasena-recuperada',component:ContrasenaRecuperadaComponent},
-  {path:'contabilidad-compras',component:ContabilidadComprasComponent,...canActivate(()=>redirectUnauthorizedTo(['']))}
+  {path:'contabilidad-compras',component:ContabilidadComprasComponent,...canActivate(()=>redirectUnauthorizedTo(['']))},
+  {path:'contabilidad-ventas',component:ContabilidadVentasComponent,...canActivate(()=>redirectUnauthorizedTo(['']))}
 ]
 
 registerAllModules()
@@ -62,7 +64,8 @@ registerAllModules()
     ModalComponent,
     RecuperarComponent,
     MenuComponent,
-    ContabilidadComprasComponent
+    ContabilidadComprasComponent,
+    ContabilidadVentasComponent
   ],
   imports: [
     CommonModule,
