@@ -1,5 +1,8 @@
 <app-cabecera></app-cabecera>
 
+<script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@handsontable/angular/bundles/handsontable-angular.umd.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css" rel="stylesheet">
 
 <input type="file" (change)="readExcel($event)">
 
@@ -8,7 +11,7 @@
 
 
     <h3 style="text-align:center;">VENTAS</h3>
-    <table class="table table-striped">
+    <!-- <table class="table table-striped table-bordered table-sm">
         <tbody>
             <tr *ngFor="let x of excelData">
                 <td *ngFor="let cell of x">
@@ -16,5 +19,14 @@
                 </td>
             </tr>
         </tbody>
-    </table>
-    
+    </table> -->
+    <hot-table 
+    licenseKey="non-commercial-and-evaluation"
+    [data]="excelData" 
+    [colHeaders]="true"
+    [rowHeaders]="true"
+    height="auto"
+    width="auto">
+        <hot-column *ngFor="let x of excelData" title=""></hot-column>
+    </hot-table>
+
