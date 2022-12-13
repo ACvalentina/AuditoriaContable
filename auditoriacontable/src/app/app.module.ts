@@ -36,6 +36,7 @@ import { CommonModule } from '@angular/common';
 import { ContabilidadVentasComponent } from './contabilidad-ventas/contabilidad-ventas.component';
 
 
+
 const appRoutes : Routes = [
   {path:'',component:IngresarComponent},
   {path:'comprobantes',component:ComprobantesComponent},
@@ -81,7 +82,7 @@ registerAllModules()
     FormsModule,
     provideFirestore(() => getFirestore()),
     SweetAlert2Module,
-    HotTableModule,
+    HotTableModule.forRoot(),
     SidebarModule
   ],
   providers: [

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx'
-
+import * as Handsontable from 'handsontable'
+import { HandsontableEditor } from 'handsontable/editors';
+import { HandsontableCellType } from 'handsontable/cellTypes';
 @Component({
   selector: 'app-contabilidad-ventas',
   templateUrl: './contabilidad-ventas.component.html',
@@ -8,7 +10,7 @@ import * as XLSX from 'xlsx'
 })
 export class ContabilidadVentasComponent implements OnInit {
 
-  excelData: any
+  excelData: [][]
 
   constructor() { }
 
@@ -23,7 +25,7 @@ export class ContabilidadVentasComponent implements OnInit {
     fileReader.onload = (e)=>{
       var workbook = XLSX.read(fileReader.result,{type:'binary'});
       var sheetNames = workbook.SheetNames;
-      this.excelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[1]]);
+      this.excelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[1]], {header: 1});
       console.log(this.excelData)
     }
   }

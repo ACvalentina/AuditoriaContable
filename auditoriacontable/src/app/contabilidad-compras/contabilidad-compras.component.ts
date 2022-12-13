@@ -7,7 +7,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./contabilidad-compras.component.scss']
 })
 export class ContabilidadComprasComponent implements OnInit {
-  excelData: any;
+  excelData: [][];
 
   constructor() { }
 
@@ -21,7 +21,7 @@ export class ContabilidadComprasComponent implements OnInit {
     fileReader.onload = (e)=>{
       var workbook = XLSX.read(fileReader.result,{type:'binary'});
       var sheetNames = workbook.SheetNames;
-      this.excelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[0]]);
+      this.excelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[0]], {header: 1});
       console.log(this.excelData)
     }
   }
