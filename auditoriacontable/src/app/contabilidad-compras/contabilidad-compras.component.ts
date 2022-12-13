@@ -7,7 +7,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./contabilidad-compras.component.scss']
 })
 export class ContabilidadComprasComponent implements OnInit {
-  excelData: unknown[];
+  excelData: any;
 
   constructor() { }
 

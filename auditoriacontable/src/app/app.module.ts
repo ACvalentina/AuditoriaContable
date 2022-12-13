@@ -61,7 +61,8 @@ registerAllModules()
     RegistrarComponent,
     ModalComponent,
     RecuperarComponent,
-    MenuComponent
+    MenuComponent,
+    ContabilidadComprasComponent
   ],
   imports: [
     CommonModule,
