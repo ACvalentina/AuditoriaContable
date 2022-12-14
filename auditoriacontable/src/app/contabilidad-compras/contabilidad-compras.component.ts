@@ -23,6 +23,7 @@ export class ContabilidadComprasComponent implements OnInit {
       var workbook = XLSX.read(fileReader.result,{type:'binary'});
       var sheetNames = workbook.SheetNames;
       this.excelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[0]], {header: 1});
+      this.show = true
       console.log(this.excelData)
     }
   }

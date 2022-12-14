@@ -27,7 +27,8 @@ licenseKey="non-commercial-and-evaluation"
 [colHeaders]="true"
 [rowHeaders]="true"
 height="auto"
-width="auto">
+width="auto"
+*ngIf="show">
     <hot-column *ngFor="let x of excelData" title=""></hot-column>
 </hot-table>
 
