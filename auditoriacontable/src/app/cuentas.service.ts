@@ -26,7 +26,7 @@ export class CuentasService {
    return start.pipe(switchMap(startText => {
     const endText = startText + '\uf8ff';
     return this.db.collection('Cuentas', ref => ref.orderBy('nombre').limit(10).startAt(startText).endAt(endText))
-    .snapshotChanges().pipe(debounceTime(200)).pipe(distinctUntilChanged()).pipe(map(changes => {
+    .snapshotChanges().pipe(debounceTime(50)).pipe(distinctUntilChanged()).pipe(map(changes => {
       return changes.map(c => {
         const data = c.payload.doc.data();
         const id = c.payload.doc.id;

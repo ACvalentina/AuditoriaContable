@@ -3,19 +3,26 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { addDoc, collection, Firestore } from '@angular/fire/firestore';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx'; 
+import { CuentasService } from '../cuentas.service'
+import { BehaviorSubject, Observable } from 'rxjs'
 
 @Component({
   selector: 'app-contabilidad-compras',
   templateUrl: './contabilidad-compras.component.html',
-  styleUrls: ['./contabilidad-compras.component.scss']
+  styleUrls: ['./contabilidad-compras.component.scss'],
+  providers: [CuentasService]
 })
+
 export class ContabilidadComprasComponent implements OnInit {
   excelData: Array<any>=[] as any;
   public show = false;
+  cuentas$: Observable<any[]>;
+  startAt: BehaviorSubject<string> = new BehaviorSubject('');
 
-  constructor(private afAuth: AngularFireAuth,private firestore:Firestore) { }
+  constructor(private afAuth: AngularFireAuth,private firestore:Firestore, private cuentasSvc: CuentasService) { }
 
   ngOnInit(): void {
+    this.cuentas$ = this.cuentasSvc.getCuentas(this.startAt)
   }
   
   readExcel(event:any){
@@ -123,5 +130,9 @@ export class ContabilidadComprasComponent implements OnInit {
       }
     }
     return true
+  }
+
+  search(searchText){
+    this.startAt.next(searchText)
   }
 }
