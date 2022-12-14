@@ -8,6 +8,7 @@ import * as XLSX from 'xlsx';
 })
 export class ContabilidadComprasComponent implements OnInit {
   excelData: [][];
+  public show = false
 
   constructor() { }
 

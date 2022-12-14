@@ -26,6 +26,7 @@ export class ContabilidadVentasComponent implements OnInit {
       var workbook = XLSX.read(fileReader.result,{type:'binary'});
       var sheetNames = workbook.SheetNames;
       this.excelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[1]], {header: 1});
+  
       console.log(this.excelData)
     }
   }
