@@ -1,13 +1,31 @@
 <div class="container-fluid" role="banner">
 
-    <!-- MENÚ LATERAL -->
- 
-      <a class="icon" (click)="menu.toggleSidebar()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-        </svg>
-      </a>
-      
+    <!-- MENÚ LATERAL -->      
+      <input type="checkbox" id="btn-menu">
+      <div class="container-menu">
+        <div class="cont-menu">
+          <nav>
+            <a href="/contabilidad-compras">Compras</a>
+            <a href="/contabilidad-ventas">Ventas</a>
+            <a href="">Honorarios Informe Anual</a>
+            <a href="">Honorarios Informe Mensual</a>
+            <a href="">Honorarios Informe Diario</a>
+          </nav>
+          <label for="btn-menu" class="icon-exit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z"/>
+            </svg>
+          </label>
+        </div>
+      </div>
+
+      <div class="btn-menu">
+      <label for="btn-menu" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+      </svg></label>
+    </div>
+    
+   
 
     <!--LOGO-->
     <a href="/inicio2">
@@ -32,10 +50,9 @@
       <button (click)="modal.showModal()" type="reset" class="btn color" >Nuevo comprobante</button>
       <button (click)="logOut()" type="button" class="btn color" >Salir</button>
       
-    </div>   
+    </div>
 </div>
 
 <!-- VENTANA NUEVO COMPROBANTE -->
 <app-modal #modal></app-modal>
 
-<app-menu #menu></app-menu>

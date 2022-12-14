@@ -29,7 +29,6 @@ import { ContrasenaRecuperadaComponent } from './contrasena-recuperada/contrasen
 import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { HotTableModule } from '@handsontable/angular';
 import { registerAllModules } from 'handsontable/registry';
-import { MenuComponent } from './menu/menu.component';
 import { SidebarModule } from 'ng-sidebar';
 import { ContabilidadComprasComponent } from './contabilidad-compras/contabilidad-compras.component';
 import { CommonModule } from '@angular/common';
@@ -64,7 +63,6 @@ registerAllModules()
     RegistrarComponent,
     ModalComponent,
     RecuperarComponent,
-    MenuComponent,
     ContabilidadComprasComponent,
     ContabilidadVentasComponent
   ],
