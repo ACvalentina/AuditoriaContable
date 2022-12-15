@@ -85,7 +85,7 @@ export class ContabilidadComprasComponent implements OnInit {
         "Tasa Otro Impuesto":this.excelData[i][26]
         })
         console.log(obj)
-        addDoc(ref,obj)
+        addDoc(ref,obj) //corroborar si ya esta en la bd?
         //segun tipo documento, realizar una funcion
       }
     }
