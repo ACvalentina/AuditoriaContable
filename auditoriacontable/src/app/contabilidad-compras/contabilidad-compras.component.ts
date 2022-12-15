@@ -86,12 +86,8 @@ export class ContabilidadComprasComponent implements OnInit {
         })
         console.log(obj)
         addDoc(ref,obj)
+        //segun tipo documento, realizar una funcion
       }
-      
-      
-      
-      //addDoc(ref,obj) //guardar
-      //segun tipo documento, realizar una funcion
     }
     else{
       Swal.fire({
@@ -99,10 +95,8 @@ export class ContabilidadComprasComponent implements OnInit {
         text: 'Tienes un codigo erroneo',
         icon: 'warning',
         allowOutsideClick: false,
-    })
+      })
     }
-
-    this.show = false
   }
 
   async getUid(){

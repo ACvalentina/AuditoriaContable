@@ -66,6 +66,13 @@
         Este campo es obligatorio.
       </div>
 
+      <div
+        *ngIf="registrarUsuario.get('rut')?.touched && !verificarRut()"
+        class="alert alert-danger"
+      >
+        RUT Inválido.
+      </div>
+
       
       <!--<div *ngIf="!verificarRut()" class="alert alert-danger">
         Dígito Verificador incorrecto.
