@@ -98,13 +98,9 @@ export class ContabilidadComprasComponent implements OnInit {
         "Tasa Otro Impuesto":this.excelData[i][26]
         })
         console.log(obj)
-        addDoc(ref,obj)
+        addDoc(ref,obj) //corroborar si ya esta en la bd?
+        //segun tipo documento, realizar una funcion
       }
-      
-      
-      
-      //addDoc(ref,obj) //guardar
-      //segun tipo documento, realizar una funcion
     }
     else{
       Swal.fire({
@@ -112,10 +108,8 @@ export class ContabilidadComprasComponent implements OnInit {
         text: 'Tienes un código erroneo',
         icon: 'warning',
         allowOutsideClick: false,
-    })
+      })
     }
-
-    this.show = false
   }
 
   async getUid(){

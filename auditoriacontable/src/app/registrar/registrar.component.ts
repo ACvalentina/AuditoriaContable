@@ -109,12 +109,11 @@ export class RegistrarComponent implements OnInit {
       }
     }
 
-    /*verificarRut():boolean{ //meter async await en otra funcion para llamar al rut
-      const rut = this.rut;
+    verificarRut(){ //meter async await en otra funcion para llamar al rut
+      const rut = this.registrarUsuario.value.rut;
       const dv = rut[rut.length-1]
       const rut_sin_dv = rut.slice(0,rut.length-2)
       const rut_sin_puntos = (rut_sin_dv.replace('.','').replace('.',''))
-
       let dv_final;
       let sum = 0;
       let mul = 2;
@@ -126,7 +125,7 @@ export class RegistrarComponent implements OnInit {
           } else {
             mul++;
           }
-        }
+      }
 
       const res = sum % 11;
 
@@ -139,6 +138,6 @@ export class RegistrarComponent implements OnInit {
           dv_final = `${11 - res}`;
       }
       return (dv===dv_final)
-    }*/
+    }
     
   }
