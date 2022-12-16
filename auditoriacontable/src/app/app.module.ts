@@ -1,7 +1,6 @@
 import { DEFAULT_CURRENCY_CODE, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
 import { AngularFireModule } from '@angular/fire/compat';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -81,7 +80,7 @@ registerAllModules()
     provideFirestore(() => getFirestore()),
     SweetAlert2Module,
     HotTableModule.forRoot(),
-    SidebarModule
+    SidebarModule,
   ],
   providers: [
     CuentasService,

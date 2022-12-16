@@ -18,10 +18,15 @@ export class ContabilidadComprasComponent implements OnInit {
   public show = false;
   cuentas$: Observable<any[]>;
   startAt: BehaviorSubject<string> = new BehaviorSubject('');
+  nombreCuenta: string[] = []
+
 
   constructor(private afAuth: AngularFireAuth,private firestore:Firestore, private cuentasSvc: CuentasService) { }
 
   ngOnInit(): void {
+    // this.cuentas$ = this.cuentasSvc.getCuentas(this.startAt)
+  }
+  autocomplete(){
     this.cuentas$ = this.cuentasSvc.getCuentas(this.startAt)
   }
   
@@ -37,6 +42,9 @@ export class ContabilidadComprasComponent implements OnInit {
       this.show = true
     }
   }
+  validar(nombreCuenta){
+    if(nombreCuenta === undefined){ nombreCuenta = '' }
+  }
   async Guardar(){
     if(this.comprobarCodigosDoc()===true){
       Swal.fire({
@@ -47,15 +55,20 @@ export class ContabilidadComprasComponent implements OnInit {
       })
       const ref = collection(this.firestore,'Contabilidad-Compras');
       const id = await this.getUid();//arreglar los guardados
+
       for(let i = 1; i<this.excelData.length ; i++){
         
         for(let j = 0; j<29 ; j++){
           if(this.excelData[i][j]===undefined){
             this.excelData[i][j] = ''
           }
+          if(this.nombreCuenta[i]===undefined){
+            this.nombreCuenta[i] = ''
+          }
         }
         let obj = Object.assign({
         "UID":id,
+        "Cuenta": this.nombreCuenta[i],
         "Nro":this.excelData[i][0],
         "Tipo Doc":this.excelData[i][1],
         "Tipo Compra":this.excelData[i][2],
@@ -96,7 +109,7 @@ export class ContabilidadComprasComponent implements OnInit {
     else{
       Swal.fire({
         title: '¡Cuidado!',
-        text: 'Tienes un codigo erroneo',
+        text: 'Tienes un código erroneo',
         icon: 'warning',
         allowOutsideClick: false,
     })
@@ -135,4 +148,8 @@ export class ContabilidadComprasComponent implements OnInit {
   search(searchText){
     this.startAt.next(searchText)
   }
+
+  //FUNCIÓN ACTIVO FIJO
+  
+
 }
