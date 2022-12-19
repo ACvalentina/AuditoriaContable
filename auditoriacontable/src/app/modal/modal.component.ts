@@ -19,6 +19,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
 
   public show = false;
   public formComprobante;
+  public showDate = false;
 
   cuentas$: Observable<any[]>;
   startAt: BehaviorSubject<string> = new BehaviorSubject('');
@@ -29,6 +30,12 @@ export class ModalComponent implements OnInit, AfterViewInit {
   totalresta
   valordebe
   valorhaber
+  datosMes
+  datosAnio
+  opcionMes = '0'
+  opcionAnio = '0'
+  addMes = ''
+  addAnio = ''
 
   constructor(
     private afAuth: AngularFireAuth, 
@@ -45,6 +52,9 @@ export class ModalComponent implements OnInit, AfterViewInit {
       glosaIndex: [''],
       datosCuenta: this.formBuilder.array([])
     })
+
+    this.datosMes = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    this.datosAnio = [2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000]
     
   }
 
@@ -64,6 +74,10 @@ export class ModalComponent implements OnInit, AfterViewInit {
   }
   hideModal(){
     this.show = false;
+  }
+
+  hideModalDate(){
+    this.showDate = false
   }
 
   //ABREVIACIÓN PARA LOS CONTROLES DEL FORMULARIO COMPROBANTE
@@ -207,6 +221,35 @@ export class ModalComponent implements OnInit, AfterViewInit {
     }
     else{
       return user?.uid;
+    }
+  }
+
+  getMes(){
+    this.addMes = this.opcionMes
+  }
+  getAnio(){
+    this.addAnio = this.opcionAnio
+  }
+
+  async selectDate() {
+    this.showDate = true
+    const month = await this.addMes
+    const year = await this.addAnio
+    if(month === '' || month === '0' || year === '' || year === '0'){
+      Swal.fire({
+        text: 'Debes seleccionar mes y año',
+        icon: 'warning',
+        allowOutsideClick: false,
+      })
+    }else{
+      Swal.fire({
+        title: 'Confirmado',
+        text: 'Se seleccionó mes y año',
+        icon: 'success',
+        allowOutsideClick: false,
+      })
+      
+      this.showDate = false 
     }
   }
 }
