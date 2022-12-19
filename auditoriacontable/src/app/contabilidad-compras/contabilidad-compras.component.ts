@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx'; 
 import { CuentasService } from '../cuentas.service'
 import { BehaviorSubject, Observable } from 'rxjs'
+import { isEmpty } from '@firebase/util';
 
 @Component({
   selector: 'app-contabilidad-compras',
@@ -42,64 +43,80 @@ export class ContabilidadComprasComponent implements OnInit {
       this.show = true
     }
   }
-  validar(nombreCuenta){
-    if(nombreCuenta === undefined){ nombreCuenta = '' }
+  cuentasToString(){
+    for(let i = 0; i< this.nombreCuenta.length; i++){
+      if(this.nombreCuenta[i]===undefined){
+        this.nombreCuenta[i]=''
+      }
+    }
+    //if(nombreCuenta === isEmpty){ nombreCuenta = '' }
   }
   async Guardar(){
     if(this.comprobarCodigosDoc()===true){
-      Swal.fire({
-        title: '¡Guardado!',
-        text: 'Se ha guardado una nueva compra',
-        icon: 'success',
-        allowOutsideClick: false,
-      })
-      const ref = collection(this.firestore,'Contabilidad-Compras');
-      const id = await this.getUid();//arreglar los guardados
-
-      for(let i = 1; i<this.excelData.length ; i++){
-        
-        for(let j = 0; j<29 ; j++){
-          if(this.excelData[i][j]===undefined){
-            this.excelData[i][j] = ''
-          }
-          if(this.nombreCuenta[i]===undefined){
-            this.nombreCuenta[i] = ''
-          }
-        }
-        let obj = Object.assign({
-        "UID":id,
-        "Cuenta": this.nombreCuenta[i],
-        "Nro":this.excelData[i][0],
-        "Tipo Doc":this.excelData[i][1],
-        "Tipo Compra":this.excelData[i][2],
-        "Rut Proveedor":this.excelData[i][3],
-        "Razon Social":this.excelData[i][4],
-        "Folio":this.excelData[i][5],
-        "Fecha Docto":this.excelData[i][6],  //arreglar formato fechas
-        "Fecha Recepcion":this.excelData[i][7], //arreglas formato fechas
-        "Fecha Acuse":this.excelData[i][8],
-        "Monto Exento":this.excelData[i][9],
-        "Monto Neto":this.excelData[i][10],
-        "Monto IVA Recuperable":this.excelData[i][11],
-        "Monto Iva No Recuperable":this.excelData[i][12],
-        "Codigo IVA No Rec.":this.excelData[i][13],
-        "Monto Total":this.excelData[i][14],
-        "Monto Neto Activo Fijo":this.excelData[i][15],
-        "IVA Activo Fijo":this.excelData[i][16],
-        "IVA uso Comun":this.excelData[i][17],
-        "Impto. Sin Derecho a Credito":this.excelData[i][18],
-        "IVA No Retenido":this.excelData[i][19],
-        "Tabacos Puros":this.excelData[i][20],
-        "Tabacos Cigarrillos":this.excelData[i][21],
-        "Tabacos Elaborados":this.excelData[i][22],
-        "NCE o NDE sobre Fact. de Compra":this.excelData[i][23],
-        "Codigo Otro Impuesto":this.excelData[i][24],
-        "Valor Otro Impuesto":this.excelData[i][25],
-        "Tasa Otro Impuesto":this.excelData[i][26]
+      this.cuentasToString()
+      if(this.revisarCuentas()){
+        Swal.fire({
+          title: '¡Guardado!',
+          text: 'Se ha guardado una nueva compra',
+          icon: 'success',
+          allowOutsideClick: false,
         })
-        console.log(obj)
-        addDoc(ref,obj) //corroborar si ya esta en la bd?
-        //segun tipo documento, realizar una funcion
+        const ref = collection(this.firestore,'Contabilidad-Compras');
+        const id = await this.getUid();//arreglar los guardados
+  
+        for(let i = 1; i<this.excelData.length ; i++){
+          
+          for(let j = 0; j<29 ; j++){
+            if(this.excelData[i][j]===undefined){
+              this.excelData[i][j] = ''
+            }
+            if(this.nombreCuenta[i]===undefined){
+              this.nombreCuenta[i] = ''
+            }
+          }
+          let obj = Object.assign({
+          "UID":id,
+          "Cuenta": this.nombreCuenta[i],
+          "Nro":this.excelData[i][0],
+          "Tipo Doc":this.excelData[i][1],
+          "Tipo Compra":this.excelData[i][2],
+          "Rut Proveedor":this.excelData[i][3],
+          "Razon Social":this.excelData[i][4],
+          "Folio":this.excelData[i][5],
+          "Fecha Docto":this.excelData[i][6],  //arreglar formato fechas
+          "Fecha Recepcion":this.excelData[i][7], //arreglas formato fechas
+          "Fecha Acuse":this.excelData[i][8],
+          "Monto Exento":this.excelData[i][9],
+          "Monto Neto":this.excelData[i][10],
+          "Monto IVA Recuperable":this.excelData[i][11],
+          "Monto Iva No Recuperable":this.excelData[i][12],
+          "Codigo IVA No Rec.":this.excelData[i][13],
+          "Monto Total":this.excelData[i][14],
+          "Monto Neto Activo Fijo":this.excelData[i][15],
+          "IVA Activo Fijo":this.excelData[i][16],
+          "IVA uso Comun":this.excelData[i][17],
+          "Impto. Sin Derecho a Credito":this.excelData[i][18],
+          "IVA No Retenido":this.excelData[i][19],
+          "Tabacos Puros":this.excelData[i][20],
+          "Tabacos Cigarrillos":this.excelData[i][21],
+          "Tabacos Elaborados":this.excelData[i][22],
+          "NCE o NDE sobre Fact. de Compra":this.excelData[i][23],
+          "Codigo Otro Impuesto":this.excelData[i][24],
+          "Valor Otro Impuesto":this.excelData[i][25],
+          "Tasa Otro Impuesto":this.excelData[i][26]
+          })
+          //console.log(obj)
+          addDoc(ref,obj) //corroborar si ya esta en la bd?
+          //segun tipo documento, realizar una funcion
+        }
+      }
+      else{
+        Swal.fire({
+          title: '¡Cuidado!',
+          text: 'Te falta completar algunas cuentas',
+          icon: 'warning',
+          allowOutsideClick: false,
+        })
       }
     }
     else{
@@ -110,6 +127,7 @@ export class ContabilidadComprasComponent implements OnInit {
         allowOutsideClick: false,
       })
     }
+      
   }
 
   async getUid(){
@@ -143,6 +161,18 @@ export class ContabilidadComprasComponent implements OnInit {
     this.startAt.next(searchText)
   }
 
+  revisarCuentas(){///focus aca
+    let cont=0
+    console.log(cont)
+    for(let i = 0; i<this.excelData.length; i++){
+      if (this.nombreCuenta[i] == ''){
+        cont = cont+1
+      }
+    }
+    console.log(cont)
+    
+    return true
+  }
   //FUNCIÓN ACTIVO FIJO
   
 
