@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx'; 
 import { CuentasService } from '../cuentas.service'
 import { BehaviorSubject, Observable } from 'rxjs'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-contabilidad-compras',
@@ -19,15 +20,32 @@ export class ContabilidadComprasComponent implements OnInit {
   cuentas$: Observable<any[]>;
   startAt: BehaviorSubject<string> = new BehaviorSubject('');
   nombreCuenta: string[] = []
+  datosMes
+  datosAnio
+  opcionMes = '0'
+  opcionAnio = '0'
+  addMes = ''
+  addAnio = ''
 
 
-  constructor(private afAuth: AngularFireAuth,private firestore:Firestore, private cuentasSvc: CuentasService) { }
+  constructor(private afAuth: AngularFireAuth,private firestore:Firestore, private cuentasSvc: CuentasService) {
+    this.datosMes = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    this.datosAnio = [2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000]
+   }
 
   ngOnInit(): void {
+    
     // this.cuentas$ = this.cuentasSvc.getCuentas(this.startAt)
   }
   autocomplete(){
     this.cuentas$ = this.cuentasSvc.getCuentas(this.startAt)
+  }
+
+  getMes(){
+    this.addMes = this.opcionMes
+  }
+  getAnio(){
+    this.addAnio = this.opcionAnio
   }
   
   readExcel(event:any){
@@ -42,9 +60,7 @@ export class ContabilidadComprasComponent implements OnInit {
       this.show = true
     }
   }
-  validar(nombreCuenta){
-    if(nombreCuenta === undefined){ nombreCuenta = '' }
-  }
+  
   async Guardar(){
     if(this.comprobarCodigosDoc()===true){
       Swal.fire({
@@ -65,9 +81,12 @@ export class ContabilidadComprasComponent implements OnInit {
           if(this.nombreCuenta[i]===undefined){
             this.nombreCuenta[i] = ''
           }
+          
         }
         let obj = Object.assign({
         "UID":id,
+        "Mes": this.addMes,
+        "Año": this.addAnio,
         "Cuenta": this.nombreCuenta[i],
         "Nro":this.excelData[i][0],
         "Tipo Doc":this.excelData[i][1],
@@ -98,7 +117,17 @@ export class ContabilidadComprasComponent implements OnInit {
         "Tasa Otro Impuesto":this.excelData[i][26]
         })
         console.log(obj)
-        addDoc(ref,obj) //corroborar si ya esta en la bd?
+        if(this.addMes === '' || this.addMes === '0' || this.addAnio === '' || this.addAnio === '0'){
+          Swal.fire({
+            title: '¡Cuidado!',
+            text: 'Debes seleccionar mes y año',
+            icon: 'warning',
+            allowOutsideClick: false,
+          })
+        }else{
+          addDoc(ref,obj)
+        }
+         //corroborar si ya esta en la bd?
         //segun tipo documento, realizar una funcion
       }
     }
@@ -144,6 +173,6 @@ export class ContabilidadComprasComponent implements OnInit {
   }
 
   //FUNCIÓN ACTIVO FIJO
-  
+ 
 
 }

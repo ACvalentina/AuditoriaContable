@@ -1,20 +1,30 @@
 <app-cabecera></app-cabecera>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- SCRIPTS DEL HANDSONTABLE -->
 <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@handsontable/angular/bundles/handsontable-angular.umd.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css" rel="stylesheet">
 
 
-<input type="file" (change)="readExcel($event)">
+<br>
+<br>
 
-<br>
-<br>
-    <h3 style="text-align:center;">COMPRAS</h3>
+        <h3 style="text-align:center;">COMPRAS</h3>
+        <div class="cont-fecha">
+            <select [(ngModel)]="opcionMes" class="form-select form-select-lg" aria-label=".form-select-lg example" (change)="getMes()">
+                <option value="0">Seleccione el mes</option>
+                <option *ngFor="let mes of datosMes">{{mes}}</option>
+            </select>
+            <select [(ngModel)]="opcionAnio" class="form-select form-select-lg" aria-label=".form-select-lg example" (change)="getAnio()">
+                <option value="0">Seleccione el año</option>
+                <option *ngFor="let anio of datosAnio">{{anio}}</option>
+            </select>
+        </div>
+        <input type="file" (change)="readExcel($event)">    
     <table class="table table-striped table-bordered table-sm">
         <tbody>
             <th style="padding: 5px;">CUENTAS</th>
-            <tr *ngFor="let x of excelData; let i = index">
+            <tr *ngFor="let x of excelData; let  i = index">
                 <td>
                     <input onkeyup="javascript:this.value=this.value.toUpperCase()" type="text" #searchInput (keyup)="search(searchInput.value)"  list="listaCuentas" (keypress)="autocomplete()" [(ngModel)]="nombreCuenta[i]">
                         <datalist id="listaCuentas">
@@ -25,7 +35,6 @@
                     {{cell}}
                 </td>
             </tr>
-            
         </tbody>
     </table>
 
