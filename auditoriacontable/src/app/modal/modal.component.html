@@ -109,11 +109,12 @@
           <button type="button" class="btn color" (click)="addDatosCuenta()">Añadir fila</button>
           <br />
           
-          {{formComprobante.value | json}}
+          <!-- {{formComprobante.value | json}} -->
           <br />
      
           <!-- BOTONES GUARDAR,LIMPIAR Y CANCELAR -->
           <div class="modal-footer">
+            <button (click)="selectDate()" type="button" class="btn centralizar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">CENTRALIZAR</button>
             <button (click)="Guardar()" type="button" class="btn color-boton">Guardar</button>
             <button type="reset" class="btn color">Limpiar todo</button>
             <button (click)="showCierre()" type="button" class="btn color">Cancelar</button>
@@ -122,4 +123,32 @@
       </div>
     </div>
   </div>
+</ng-container>
+
+<!-- VENTANA SELECCIÓN DE MES Y AÑO -->
+<ng-container *ngIf="showDate">
+<div class="modal modalc">
+    <div class="modalc-content" style="width: 500px;">
+      <div class="modal-header modalc-header">
+        <h1 class="modal-title fs-5">¿En qué mes y año desea centralizar?</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modalc-body">
+        <select [(ngModel)]="opcionMes" class="form-select form-select-lg" aria-label=".form-select-lg example" (change)="getMes()">
+          <option value="0">Seleccione el mes</option>
+          <option *ngFor="let mes of datosMes">{{mes}}</option>
+        </select>
+        <br>
+        <select [(ngModel)]="opcionAnio" class="form-select form-select-lg" aria-label=".form-select-lg example" (change)="getAnio()">
+          <option value="0">Seleccione el año</option>
+          <option *ngFor="let anio of datosAnio">{{anio}}</option>
+        </select>
+        <div class="modal-footer">
+          <button type="button" class="btn color" data-bs-dismiss="modal" (click)="hideModalDate()">Cancelar</button>
+          <button type="button" class="btn color-boton" (click)="selectDate()">Guardar</button>
+        </div>
+      </div>
+      
+    </div>
+</div>
 </ng-container>

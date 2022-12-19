@@ -38,8 +38,10 @@
 
 .color-boton{
   background-color: #049c84;
-  color: white;
-  
+  color: white;  
+}
+.color-boton:hover{
+  opacity: 0.75;
 }
 
 .color-tabla{
@@ -52,20 +54,33 @@
   background-color: #3d4054;
   color: white;
 }
-.color :hover{
+.color:hover{
   opacity: 0.75;
 }
 .btn-icono{
   color: #3d4054;
   
 }
-.btn-icono :hover{
+.btn-icono:hover{
   opacity: 0.75;
 }
 .table th{
   text-align: center;
   vertical-align: middle;
 }
+
+.centralizar {
+  background-color: rgb(139, 233, 140);
+  color: black;
+  width: 150px;
+  margin-right: 680px;
+  font-weight: bold;
+}
+.centralizar:hover {
+  opacity: 0.75;
+}
+
+
 
 
 
