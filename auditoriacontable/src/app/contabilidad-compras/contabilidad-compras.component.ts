@@ -79,19 +79,13 @@ export class ContabilidadComprasComponent implements OnInit {
     }
     //if(nombreCuenta === isEmpty){ nombreCuenta = '' }
   }
+
   async agregarDetalles(){
     if(this.comprobarCodigosDoc()===true){
       this.cuentasToString()
       if(this.revisarCuentas()){
-        Swal.fire({
-          title: '¡Guardado!',
-          text: 'Se ha guardado una nueva compra',
-          icon: 'success',
-          allowOutsideClick: false,
-        })
-        const ref = collection(this.firestore,'Contabilidad-Compras');
         const id = await this.getUid();//arreglar los guardados
-  
+        
         for(let i = 1; i<this.excelData.length ; i++){
           
           for(let j = 0; j<29 ; j++){
@@ -103,38 +97,49 @@ export class ContabilidadComprasComponent implements OnInit {
             }
           }
           let obj = Object.assign({
-            "uid":id,
-            "anio":this.addAnio,
-            "mes":this.addMes,
-            "cuenta": this.nombreCuenta[i],
-            "nro":this.excelData[i][0],
-            "tipoDoc":this.excelData[i][1],
-            "tipoCompra":this.excelData[i][2],
-            "rutProveedor":this.excelData[i][3],
-            "razonSocial":this.excelData[i][4],
-            "folio":this.excelData[i][5],
-            "fechaDocto":this.excelData[i][6],  //arreglar formato fechas
-            "fechaRecepcion":this.excelData[i][7], //arreglas formato fechas
-            "fechaAcuse":this.excelData[i][8],
-            "montoExento":this.excelData[i][9],
-            "montoNeto":this.excelData[i][10],
-            "montoIVA_Recuperable":this.excelData[i][11],
-            "montoIVA_NoRecuperable":this.excelData[i][12],
-            "codIVA_NR":this.excelData[i][13],
-            "montoTotal":this.excelData[i][14],
-            "montoNetoActivoFijo":this.excelData[i][15],
-            "IVA_ActivoFijo":this.excelData[i][16],
-            "IVA_UsoComun":this.excelData[i][17],
-            "impSinDerechoCred":this.excelData[i][18],
-            "IVA_NoRetenido":this.excelData[i][19],
-            "tabacosPuros":this.excelData[i][20],
-            "tabacosCigarrillos":this.excelData[i][21],
-            "tabacosElaborados":this.excelData[i][22],
-            "NCE_NDE":this.excelData[i][23],
-            "codOtroImp":this.excelData[i][24],
-            "valorOtroImpuesto":this.excelData[i][25],
-            "tasaOtroImpuesto":this.excelData[i][26]
+          "uid":id,
+          "anio": this.addAnio,
+          "mes": this.addMes,
+          "cuenta": this.nombreCuenta[i],
+          "nro":this.excelData[i][0],
+          "tipoDoc":this.excelData[i][1],
+          "tipoCompra":this.excelData[i][2],
+          "rutProveedor":this.excelData[i][3],
+          "razonSocial":this.excelData[i][4],
+          "folio":this.excelData[i][5],
+          "fechaDocto":this.excelData[i][6],  //arreglar formato fechas
+          "fechaRecepcion":this.excelData[i][7], //arreglas formato fechas
+          "fechaAcuse":this.excelData[i][8],
+          "montoExento":this.excelData[i][9],
+          "montoNeto":this.excelData[i][10],
+          "montoIVA_Recuperable":this.excelData[i][11],
+          "montoIVA_NoRecuperable":this.excelData[i][12],
+          "codIVA_NR":this.excelData[i][13],
+          "montoTotal":this.excelData[i][14],
+          "montoNetoActivoFijo":this.excelData[i][15],
+          "IVA_ActivoFijo":this.excelData[i][16],
+          "IVA_UsoComun":this.excelData[i][17],
+          "impSinDerechoCred":this.excelData[i][18],
+          "IVA_NoRetenido":this.excelData[i][19],
+          "tabacosPuros":this.excelData[i][20],
+          "tabacosCigarrillos":this.excelData[i][21],
+          "tabacosElaborados":this.excelData[i][22],
+          "NCE_NDE":this.excelData[i][23],
+          "codOtroImp":this.excelData[i][24],
+          "valorOtroImpuesto":this.excelData[i][25],
+          "tasaOtroImpuesto":this.excelData[i][26]
+          })
+          /* if(this.addMes === '' || this.addMes === '0' || this.addAnio === '' || this.addAnio === '0'){
+            Swal.fire({
+              title: '¡Cuidado!',
+              text: 'Debes seleccionar mes y año',
+              icon: 'warning',
+              allowOutsideClick: false,
             })
+          } */
+          //console.log(obj)
+           //corroborar si ya esta en la bd?
+          //segun tipo documento, realizar una funci
           if(!this.comprobarActivoFijo(this.nombreCuenta[i])){
             this.objetos.push(obj)
           }
@@ -142,6 +147,8 @@ export class ContabilidadComprasComponent implements OnInit {
             this.activosFijos.push(obj)
           }
         }
+
+          
       }
       else{
         Swal.fire({
@@ -160,9 +167,8 @@ export class ContabilidadComprasComponent implements OnInit {
         allowOutsideClick: false,
       })
     }
-      
   }
-
+   
   async getUid(){
     const user = await this.afAuth.currentUser;
     if(user === null){
@@ -365,7 +371,6 @@ export class ContabilidadComprasComponent implements OnInit {
     this.showDetails = false
   }
 
-
   get detallesAF(): FormArray{
     return this.formDetails.get('detallesAF') as FormArray
   }
@@ -378,27 +383,32 @@ export class ContabilidadComprasComponent implements OnInit {
       detalleActivoFijo: new FormControl('')
     })
     this.detallesAF.push(detail)
-}
-
-Guardar(){
-  //actualizar activos fijos con sus detalles
-  const ref = collection(this.firestore,'Contabilidad-Compras')
-  for(let i=0; i<this.objetos.length;i++){
-    addDoc(ref,this.objetos[i])
   }
-  Swal.fire({
-    title: '¡Guardado!',
-    text: 'Se ha guardado una nueva compra',
-    icon: 'success',
-    allowOutsideClick: false,
-  })
-}
 
-datosDisponibles(){
-  if(this.objetos.length===0){
-    return false
+  Guardar(){
+    //actualizar activos fijos con sus detalles
+    const ref = collection(this.firestore,'Contabilidad-Compras')
+    for(let i=0; i<this.objetos.length;i++){
+      addDoc(ref,this.objetos[i])
+    }
+    Swal.fire({
+      title: '¡Guardado!',
+      text: 'Se ha guardado una nueva compra',
+      icon: 'success',
+      allowOutsideClick: false,
+    })
   }
-  return true
+
+  datosDisponibles(){
+    if(this.objetos.length===0){
+      return false
+    }
+    return true
+  }
+  
+      
 }
 
-}
+  
+
+
