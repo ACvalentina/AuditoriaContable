@@ -6,6 +6,8 @@ import { FormArray, FormBuilder} from '@angular/forms';
 import Swal from 'sweetalert2';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { addDoc, collection, Firestore } from '@angular/fire/firestore';
+import { getDocs, query, where } from 'firebase/firestore';
+import { Compras } from '../compras';
 
 
 
@@ -21,6 +23,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
   public formComprobante;
   public showDate = false;
 
+  centralizacion$ : Observable<any[]>;
   cuentas$: Observable<any[]>;
   startAt: BehaviorSubject<string> = new BehaviorSubject('');
   comprobantes: Observable<any[]>;
@@ -62,7 +65,6 @@ export class ModalComponent implements OnInit, AfterViewInit {
     this.cuentas$ = this.cuentasSvc.getCuentas(this.startAt)
     this.comprobantes = this.cuentasSvc.comprobantes
     this.documentos = this.cuentasSvc.documentos
-       
   }
   ngAfterViewInit(): void {
     this.cd.detectChanges()
@@ -241,7 +243,8 @@ export class ModalComponent implements OnInit, AfterViewInit {
         icon: 'warning',
         allowOutsideClick: false,
       })
-    }else{
+    }
+    else{
       Swal.fire({
         title: 'Confirmado',
         text: 'Se seleccionó mes y año',
@@ -251,5 +254,21 @@ export class ModalComponent implements OnInit, AfterViewInit {
       
       this.showDate = false 
     }
+    this.centralizar()
+  }
+
+  async centralizar(){
+    const id = await this.getUid()
+    const q = query(collection(this.firestore, "Contabilidad-Compras"), where("uid","==",id), where("anio","==",this.addAnio), where("mes","==",this.addMes), where("cuenta","!=",""));
+    const querySnapshot = await getDocs(q);
+
+    let cuentasUsadas:any = []
+    let comprasData:any = []
+    querySnapshot.forEach((c) => {
+    // doc.data() is never undefined for query doc snapshots
+    const datos= c.data() as Compras
+    cuentasUsadas.push(datos.cuenta)
+    });
+    console.log(cuentasUsadas)
   }
 }
