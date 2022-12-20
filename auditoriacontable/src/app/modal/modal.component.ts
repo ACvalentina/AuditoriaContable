@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { addDoc, collection, Firestore } from '@angular/fire/firestore';
 import { getDocs, query, where } from 'firebase/firestore';
+import { Compras } from '../compras';
 
 
 
@@ -258,14 +259,16 @@ export class ModalComponent implements OnInit, AfterViewInit {
 
   async centralizar(){
     const id = await this.getUid()
-    const q = query(collection(this.firestore, "Contabilidad-Compras"), where("UID","==",id), where("Anio","==",this.addAnio), where("Mes","==",this.addMes), where("Cuenta","!=",""));
+    const q = query(collection(this.firestore, "Contabilidad-Compras"), where("uid","==",id), where("anio","==",this.addAnio), where("mes","==",this.addMes), where("cuenta","!=",""));
     const querySnapshot = await getDocs(q);
 
-    let cuentasUsadas = []
+    let cuentasUsadas:any = []
+    let comprasData:any = []
     querySnapshot.forEach((c) => {
     // doc.data() is never undefined for query doc snapshots
-    const datos = c.get;
-    console.log(c.id, " => ", c.data());
+    const datos= c.data() as Compras
+    cuentasUsadas.push(datos.cuenta)
     });
+    console.log(cuentasUsadas)
   }
 }
