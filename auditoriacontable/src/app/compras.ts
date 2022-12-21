@@ -3,6 +3,7 @@ export interface Compras {
     codIVA_NR:string,
     codOtroImp:string,
     cuenta:string,
+    detalleActivoFijo:Array<string>,
     fechaAcuse:string,
     fechaDocto:string,
     fechaRecepcion:string,

@@ -343,9 +343,9 @@ export class ContabilidadComprasComponent implements OnInit {
 
   saveDetails(){
     const ref = collection(this.firestore,'Contabilidad-Compras');
-      for(let i=0; i<this.objetos.length;i++){
-        addDoc(ref,this.objetos[i])
-      }   
+    for(let i=0; i<this.objetos.length;i++){
+      addDoc(ref,this.objetos[i])
+    }   
     this.showDetails = false
     Swal.fire({
       title: '¡Guardado!',
