@@ -50,33 +50,21 @@
                 <h1 class="modal-title fs-5">Detalles Activo Fijo</h1>
                 <button (click)="hideModalDetails()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form [formGroup]="formDetails">
-            <div class="modalc-body" formArrayName="detallesAF">
-                <!-- <ng-container *ngFor="let det of arrayDetails; let i = index"> -->
-                <ng-container *ngFor="let detail of detallesAF.controls; let i = index">
-                    <!-- <input type="text" class="form-control" [(ngModel)]="inputsDetails[i]"> -->
-                    <input type="text" class="form-control">
-                    <br>
+            
+            <div class="modalc-body">
+                <ng-container *ngFor="let det of arrayDetails; let i = index">
+                <input type="text" class="form-control" [(ngModel)]="inputsDetails[i]">
+                <br>
                 </ng-container>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" (click)="addDetails()">Añadir detalle</button>
-                    <button type="button" class="btn color-boton" (click)="saveDetails()">Guardar</button>
+                    <button type="submit" class="btn color-boton" (click)="saveDetails()">Guardar</button>
                 </div>
             </div>
-            </form>
         </div>
     </div>
 </ng-container>
-<!-- <hot-table
-licenseKey="non-commercial-and-evaluation"
-[data]="excelData" 
-[colHeaders]="true"
-[rowHeaders]="true"
-height="auto"
-width="auto"
-*ngIf="show">
-<hot-column *ngFor="let x of excelData" title=""></hot-column>  
-</hot-table> -->
+
 
 <br>
 <button (click)="agregarDetalles()" type="button" class="btn btn-outline-dark">Agregar Detalles</button>
