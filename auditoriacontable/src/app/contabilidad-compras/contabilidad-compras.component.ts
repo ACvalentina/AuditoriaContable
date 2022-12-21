@@ -325,12 +325,6 @@ export class ContabilidadComprasComponent implements OnInit {
   revisarCuentas(){///seguro tabla
     for(let i = 1; i<this.excelData.length; i++){
       if (this.nombreCuenta[i] === ''){
-        Swal.fire({
-          title: '¡Cuidado!',
-          text: 'Te faltan completar algunas cuentas',
-          icon: 'warning',
-          allowOutsideClick: false,
-        })
         return true
       }
     }
@@ -340,7 +334,6 @@ export class ContabilidadComprasComponent implements OnInit {
   comprobarActivoFijo(cuenta:string){
     let tipoCuenta = cuenta.substring(0,2)
     if(tipoCuenta==="12"){
-      console.log('sisi')
       this.showDetails = true
       return true
     }
@@ -349,7 +342,7 @@ export class ContabilidadComprasComponent implements OnInit {
   }
 
   saveDetails(){
-    const ref = collection(this.firestore,'Prueba-compras');
+    const ref = collection(this.firestore,'Contabilidad-Compras');
       for(let i=0; i<this.objetos.length;i++){
         addDoc(ref,this.objetos[i])
       }   
@@ -376,7 +369,7 @@ export class ContabilidadComprasComponent implements OnInit {
   Guardar(){
     //actualizar activos fijos con sus detalles
     // const ref = collection(this.firestore,'Contabilidad-Compras')
-    const ref = collection(this.firestore,'Prueba-compras');
+    const ref = collection(this.firestore,'Contabilidad-Compras');
     for(let i=0; i<this.objetos.length;i++){
       addDoc(ref,this.objetos[i])
     }
