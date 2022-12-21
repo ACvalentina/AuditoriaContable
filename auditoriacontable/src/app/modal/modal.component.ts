@@ -8,6 +8,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { addDoc, collection, Firestore } from '@angular/fire/firestore';
 import { getDocs, query, where } from 'firebase/firestore';
 import { Compras } from '../compras';
+import { DatosCuenta } from '../datos-cuenta';
+import { Sumatoria } from '../sumatoria';
 
 
 
@@ -264,11 +266,128 @@ export class ModalComponent implements OnInit, AfterViewInit {
 
     let cuentasUsadas:any = []
     let comprasData:any = []
+    let comprasCentralizadas:any=[]
+
     querySnapshot.forEach((c) => {
-    // doc.data() is never undefined for query doc snapshots
     const datos= c.data() as Compras
-    cuentasUsadas.push(datos.cuenta)
+    let compraExiste = false;
+    comprasData.push(datos)
+    for(let i = 0; i<cuentasUsadas.length ; i++){
+      if(datos.cuenta===cuentasUsadas[i]){
+        compraExiste=true
+      }
+    }
+
+    if(compraExiste===false){
+      cuentasUsadas.push(datos.cuenta)  
+    }
+    
     });
-    console.log(cuentasUsadas)
+
+    for(let a = 0; a<cuentasUsadas.length; a++){
+      let sumaMontoExento = 0;
+      let sumaMontoIVA_Recuperable = 0;
+      let sumaMontoIVA_NoRecuperable = 0;
+      let sumaMontoNeto = 0;
+      let sumaMontoNetoActivoFijo = 0;
+      let sumaMontoTotal = 0;
+      for(let b = 0; b<comprasData.length; b++){
+        if(cuentasUsadas[a]===comprasData[b].cuenta){
+          
+          if(comprasData[b].montoExento!=""){
+            sumaMontoExento = sumaMontoExento + comprasData[b].montoExento
+          }
+          if(comprasData[b].montoIVA_Recuperable!=""){
+            sumaMontoIVA_Recuperable = sumaMontoIVA_Recuperable + comprasData[b].montoIVA_Recuperable
+          }
+          if(comprasData[b].montoIVA_NoRecuperable!=""){
+            sumaMontoIVA_NoRecuperable = sumaMontoIVA_NoRecuperable + comprasData[b].montoIVA_NoRecuperable
+          }
+          if(comprasData[b].montoNeto!=""){
+            sumaMontoNeto = sumaMontoNeto + comprasData[b].montoNeto
+          }
+          if(comprasData[b].montoNetoActivoFijo!=""){
+            sumaMontoNetoActivoFijo = sumaMontoNetoActivoFijo + comprasData[b].montoNetoActivoFijo
+          }
+          if(comprasData[b].montoTotal!=""){
+            sumaMontoTotal = sumaMontoTotal + comprasData[b].montoTotal
+          }
+        }
+      }
+      let sumas = Object.assign({
+        "cuenta":cuentasUsadas[a],
+        "sumaMontoExento":sumaMontoExento,
+        "sumaMontoIVA_Recuperable":sumaMontoIVA_Recuperable,
+        "sumaMontoIVA_NoRecuperable":sumaMontoIVA_NoRecuperable,
+        "sumaMontoNeto":sumaMontoNeto,
+        "sumaMontoNetoActivoFijo":sumaMontoNetoActivoFijo,
+        "sumaMontoTotal":sumaMontoTotal
+      })
+      comprasCentralizadas.push(sumas)
+    }
+    //guardar como comprobante
+
+    let datosCuentaCentralizacion :any = []
+    for(let i = 0; i<comprasCentralizadas.length;i++){
+      let montos:DatosCuenta = Object.assign({
+        "centroInput":"",
+        "cuentaInput":comprasCentralizadas[i].cuenta,
+        "debeInput":"",
+        "glosaInput":"CENTRALIZACIÓN",
+        "haberInput":comprasCentralizadas[i].sumaMontoExento+comprasCentralizadas[i].sumaMontoNeto,
+        "sucursalInput":""
+      })
+      datosCuentaCentralizacion.push(montos)
+      let impuestos:DatosCuenta = Object.assign({
+        "centroInput":"",
+        "cuentaInput":"1108-02-IVA CREDITO FISCAL",
+        "debeInput":"",
+        "glosaInput":"CENTRALIZACIÓN",
+        "haberInput":comprasCentralizadas[i].sumaMontoIVA_Recuperable,
+        "sucursalInput":""
+      })
+      datosCuentaCentralizacion.push(impuestos)
+      if(comprasCentralizadas[i].cuenta.substring(0,2)==="12"){
+        let debe:DatosCuenta = Object.assign({
+          "centroInput":"",
+          "cuentaInput":"ACREEDORES",
+          "debeInput":comprasCentralizadas[i].sumaMontoTotal,
+          "glosaInput":"CENTRALIZACIÓN",
+          "haberInput":"",
+          "sucursalInput":""
+        })
+        datosCuentaCentralizacion.push(debe)
+      }
+      else{
+        let debe:DatosCuenta = Object.assign({
+        "centroInput":"",
+        "cuentaInput":"PROVEEDORES",
+        "debeInput":comprasCentralizadas[i].sumaMontoTotal,
+        "glosaInput":"CENTRALIZACIÓN",
+        "haberInput":"",
+        "sucursalInput":""
+        })
+        datosCuentaCentralizacion.push(debe)
+      }
+    }
+    let info = Object.assign({
+      "datosCuenta": datosCuentaCentralizacion,
+      "fecha": this.formComprobante.value.fecha,
+      "glosaIndex":"CENTRALIZACIÓN",
+      "numComprobante":this.formComprobante.value.numComprobante,
+      "tipoComprobante":this.formComprobante.value.tipoComprobante,
+      "tipoDocumento":this.formComprobante.value.tipoDocumento
+    })
+    let comprobanteCentralizado = Object.assign({
+      "Info":info,
+      "UID":id
+    })
+    console.log(comprobanteCentralizado)
+    if(comprasCentralizadas.length>0){
+      const ref = collection(this.firestore,'Comprobantes')
+      addDoc(ref,comprobanteCentralizado)
+      console.log('Guardado')
+    }
+    //console.log(comprasCentralizadas)
   }
 }
