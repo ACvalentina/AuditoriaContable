@@ -59,9 +59,9 @@ export class ContabilidadComprasComponent implements OnInit {
     fileReader.readAsBinaryString(file);
 
     fileReader.onload = (e)=>{
-      var workbook = XLSX.read(fileReader.result,{type:'binary'});
+      var workbook = XLSX.read(fileReader.result,{type:'binary', cellDates:true});
       var sheetNames = workbook.SheetNames;
-      this.excelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[0]], {header: 1});
+      this.excelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[0]], {header: 1, raw:false, dateNF:'yyyy-mm-dd HH:mm:ss'});
       this.show = true
     }
   }
