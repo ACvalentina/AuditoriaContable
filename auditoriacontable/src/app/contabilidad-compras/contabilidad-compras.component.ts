@@ -183,7 +183,8 @@ export class ContabilidadComprasComponent implements OnInit {
   }
   comprobarCodigosDoc():boolean{ //repetir para ventas, pero cambiar codigos
     let codigosExcel = this.obtenerDocs();
-    const codigosPermitidos = [29,30,32,33,34,40,43,45,46,55,56,60,61,108,901,914,911,904,909,910,911]
+    console.log(codigosExcel)
+    const codigosPermitidos = ["29","30","32","33","34","40","43","45","46","55","56","60","61","108","901","914","911","904","909","910","911"]
     for(let i = 0; i < codigosExcel.length; i++){
       if(codigosPermitidos.indexOf(codigosExcel[i])===-1){
         return false
