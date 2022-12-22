@@ -252,10 +252,10 @@ export class ModalComponent implements OnInit, AfterViewInit {
         icon: 'success',
         allowOutsideClick: false,
       })
-      
+      this.centralizar()
       this.showDate = false 
     }
-    this.centralizar()
+    
   }
 
   async centralizar(){
@@ -327,6 +327,9 @@ export class ModalComponent implements OnInit, AfterViewInit {
     //guardar como comprobante
 
     let datosCuentaCentralizacion :any = []
+    let sumaImp=0
+    let sumaProv=0
+    let sumaAcr=0
     for(let i = 0; i<comprasCentralizadas.length;i++){
       let montos:DatosCuenta = Object.assign({
         "centroInput":"",
@@ -337,7 +340,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
         "sucursalInput":""
       })
       datosCuentaCentralizacion.push(montos)
-      let impuestos:DatosCuenta = Object.assign({
+      /*let impuestos:DatosCuenta = Object.assign({
         "centroInput":"",
         "cuentaInput":"1108-02-IVA CREDITO FISCAL",
         "debeInput":"",
@@ -345,30 +348,60 @@ export class ModalComponent implements OnInit, AfterViewInit {
         "haberInput":comprasCentralizadas[i].sumaMontoIVA_Recuperable,
         "sucursalInput":""
       })
-      datosCuentaCentralizacion.push(impuestos)
+      datosCuentaCentralizacion.push(impuestos)*/
+      sumaImp+=comprasCentralizadas[i].sumaMontoIVA_Recuperable
       if(comprasCentralizadas[i].cuenta.substring(0,2)==="12"){
-        let debe:DatosCuenta = Object.assign({
+        /*let debe:DatosCuenta = Object.assign({
           "centroInput":"",
           "cuentaInput":"ACREEDORES",
-          "debeInput":comprasCentralizadas[i].sumaMontoTotal,
+          "debeInput":,
           "glosaInput":"CENTRALIZACIÓN",
           "haberInput":"",
           "sucursalInput":""
         })
-        datosCuentaCentralizacion.push(debe)
+        datosCuentaCentralizacion.push(debe)*/
+        sumaAcr+=comprasCentralizadas[i].sumaMontoTotal
       }
       else{
-        let debe:DatosCuenta = Object.assign({
+        /*let debe:DatosCuenta = Object.assign({
         "centroInput":"",
         "cuentaInput":"PROVEEDORES",
-        "debeInput":comprasCentralizadas[i].sumaMontoTotal,
+        "debeInput":,
         "glosaInput":"CENTRALIZACIÓN",
         "haberInput":"",
         "sucursalInput":""
         })
-        datosCuentaCentralizacion.push(debe)
+        datosCuentaCentralizacion.push(debe)*/
+        sumaProv+=comprasCentralizadas[i].sumaMontoTotal
       }
     }
+    let imp:DatosCuenta = Object.assign({
+      "centroInput":"",
+      "cuentaInput":"1108-02-IVA CREDITO FISCAL",
+      "debeInput":"",
+      "glosaInput":"CENTRALIZACIÓN",
+      "haberInput":sumaImp,
+      "sucursalInput":""
+    })
+    let prov:DatosCuenta = Object.assign({
+      "centroInput":"",
+      "cuentaInput":"PROVEEDORES",
+      "debeInput":sumaProv,
+      "glosaInput":"CENTRALIZACIÓN",
+      "haberInput":"",
+      "sucursalInput":""
+    })
+    let acr:DatosCuenta = Object.assign({
+      "centroInput":"",
+      "cuentaInput":"ACREEDORES",
+      "debeInput":sumaAcr,
+      "glosaInput":"CENTRALIZACIÓN",
+      "haberInput":"",
+      "sucursalInput":""
+    })
+    datosCuentaCentralizacion.push(imp)
+    datosCuentaCentralizacion.push(prov)
+    datosCuentaCentralizacion.push(acr)
     
     for(let x = 0; x<datosCuentaCentralizacion.length; x++){
       const tabla = this.formBuilder.group({
