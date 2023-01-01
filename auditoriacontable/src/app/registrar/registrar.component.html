@@ -73,11 +73,6 @@
         RUT Inválido.
       </div>
 
-      
-      <!--<div *ngIf="!verificarRut()" class="alert alert-danger">
-        Dígito Verificador incorrecto.
-      </div>-->
-
       <div
         *ngIf="(registrarUsuario.get('rut')?.touched && registrarUsuario.get('rut')?.errors?.['pattern'])"
         class="alert alert-danger"

@@ -1,0 +1,41 @@
+.row{
+    display: flex;
+    background-color: white;
+    float: left;
+    padding: 25px;
+    width: 50%;
+    height: 100%;
+    position: initial;
+}
+
+#form{
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid black;
+    margin-bottom: 20px;
+    background-color:#93d3c9;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.x {
+    background-color: #add1c9;
+    border: 1px solid black;
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    overflow: hidden;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.x .info {
+    padding: 10px 20px;
+}
+
+.x .image {
+    background-size: cover;
+    background-position: center;
+}

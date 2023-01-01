@@ -109,7 +109,7 @@ export class RegistrarComponent implements OnInit {
       }
     }
 
-    verificarRut(){ //meter async await en otra funcion para llamar al rut
+    verificarRut(){
       const rut = this.registrarUsuario.value.rut;
       const dv = rut[rut.length-1]
       const rut_sin_dv = rut.slice(0,rut.length-2)
