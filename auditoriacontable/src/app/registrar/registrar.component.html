@@ -2,12 +2,20 @@
 
 <div class="row">
 
+  <h3 style="text-align: center;">Registrarse</h3>
+  <br>
+  <div class="mb-4">
+    <label class="form-label">Tipo de usuario:</label>
+    <select [(ngModel)]="opcionRol" class="form-select" aria-label=".form-select-lg example" (change)="getRol()">
+      <option value="0">Seleccionar</option>
+      <option *ngFor="let rol of datosRol">{{rol}}</option>
+    </select>
+  </div>
 
   <form (ngSubmit)="registrar()" [formGroup]="registrarUsuario">
 
-    <h3 style="text-align: center;">Registrarse</h3>
-
-    <br>
+    
+    
     
       <div class="mb-4">
         

@@ -19,6 +19,10 @@ export class RegistrarComponent implements OnInit {
   rut:any;
   password1: any;
   password2: any;
+  rolUser: any;
+  datosRol
+  opcionRol = '0'
+  addRol = ''
   
   constructor(private readonly fb: FormBuilder, private afAuth: AngularFireAuth, private router:Router, private firebaseError : FirebaseErrorService, private firestore:Firestore) {
     this.registrarUsuario = this.fb.group({
@@ -53,7 +57,8 @@ export class RegistrarComponent implements OnInit {
         ],
       ],
       password2: [''],
-    })
+    }),
+    this.datosRol = ['Administrador', 'Supervisor', 'Digitador', 'Cliente']
   }
   
     ngOnInit(): void {
@@ -72,11 +77,12 @@ export class RegistrarComponent implements OnInit {
       const password1 = this.registrarUsuario.value.password1;
       const username = this.registrarUsuario.value.username;
       const rut = this.registrarUsuario.value.rut;
+      const rolUser = this.addRol;
 
       this.afAuth.createUserWithEmailAndPassword(email,password1).then(()=> {
         this.router.navigate(['/verificado']);
         this.verificarCorreo();
-        this.guardarUsuario(username,rut,email);
+        this.guardarUsuario(username,rut,email,rolUser);
         
       }).catch((error)=>{
         alert(this.firebaseError.firebaseError(error.code))
@@ -87,13 +93,14 @@ export class RegistrarComponent implements OnInit {
       this.afAuth.currentUser.then(user=> user?.sendEmailVerification())
     }
     
-    async guardarUsuario(username:any,rut:any,email:any){
+    async guardarUsuario(username:any,rut:any,email:any,rolUser:any){
       const id = await this.getUid();
       const obj = Object.assign({
         "UID":id,
         "Username":username,
         "RUT":rut,
-        "Correo electrónico":email
+        "Correo electrónico":email,
+        "Tipo usuario":rolUser
       })
       const ref = collection(this.firestore,'Usuarios');
       return addDoc(ref,obj);
@@ -139,5 +146,9 @@ export class RegistrarComponent implements OnInit {
       }
       return (dv===dv_final)
     }
+
+    getRol(){
+      this.addRol = this.opcionRol
+    }
     
-  }
+}
