@@ -74,96 +74,6 @@ export class ContabilidadComprasComponent implements OnInit {
     }
     //if(nombreCuenta === isEmpty){ nombreCuenta = '' }
   }
-
-  async agregarDetalles(){
-    if(this.comprobarCodigosDoc()===true){
-      this.cuentasToString()
-      if(this.revisarCuentas()){
-        const id = await this.getUid();//arreglar los guardados
-        
-        for(let i = 1; i<this.excelData.length ; i++){
-          
-          for(let j = 0; j<29 ; j++){
-            if(this.excelData[i][j]===undefined){
-              this.excelData[i][j] = ''
-            }
-            if(this.nombreCuenta[i]===undefined){
-              this.nombreCuenta[i] = ''
-            }
-          }
-          let obj = Object.assign({
-          "uid":id,
-          "anio": this.addAnio,
-          "mes": this.addMes,
-          "cuenta": this.nombreCuenta[i],
-          "nro":this.excelData[i][0],
-          "tipoDoc":this.excelData[i][1],
-          "tipoCompra":this.excelData[i][2],
-          "rutProveedor":this.excelData[i][3],
-          "razonSocial":this.excelData[i][4],
-          "folio":this.excelData[i][5],
-          "fechaDocto":this.excelData[i][6],  //arreglar formato fechas
-          "fechaRecepcion":this.excelData[i][7], //arreglas formato fechas
-          "fechaAcuse":this.excelData[i][8],
-          "montoExento":this.excelData[i][9],
-          "montoNeto":this.excelData[i][10],
-          "montoIVA_Recuperable":this.excelData[i][11],
-          "montoIVA_NoRecuperable":this.excelData[i][12],
-          "codIVA_NR":this.excelData[i][13],
-          "montoTotal":this.excelData[i][14],
-          "montoNetoActivoFijo":this.excelData[i][15],
-          "IVA_ActivoFijo":this.excelData[i][16],
-          "IVA_UsoComun":this.excelData[i][17],
-          "impSinDerechoCred":this.excelData[i][18],
-          "IVA_NoRetenido":this.excelData[i][19],
-          "tabacosPuros":this.excelData[i][20],
-          "tabacosCigarrillos":this.excelData[i][21],
-          "tabacosElaborados":this.excelData[i][22],
-          "NCE_NDE":this.excelData[i][23],
-          "codOtroImp":this.excelData[i][24],
-          "valorOtroImpuesto":this.excelData[i][25],
-          "tasaOtroImpuesto":this.excelData[i][26]
-          })
-          /* if(this.addMes === '' || this.addMes === '0' || this.addAnio === '' || this.addAnio === '0'){
-            Swal.fire({
-              title: '¡Cuidado!',
-              text: 'Debes seleccionar mes y año',
-              icon: 'warning',
-              allowOutsideClick: false,
-            })
-          } */
-          //console.log(obj)
-           //corroborar si ya esta en la bd?
-          //segun tipo documento, realizar una funci
-          if(!this.comprobarActivoFijo(this.nombreCuenta[i])){
-            this.objetos.push(obj)
-          }
-          else{
-            
-            this.activosFijos.push(obj)
-          }
-        }
-
-          
-      }
-      else{
-        Swal.fire({
-          title: '¡Cuidado!',
-          text: 'Te falta completar algunas cuentas',
-          icon: 'warning',
-          allowOutsideClick: false,
-        })
-      }
-    }
-    else{
-      Swal.fire({
-        title: '¡Cuidado!',
-        text: 'Tienes un código erroneo',
-        icon: 'warning',
-        allowOutsideClick: false,
-      })
-    }
-  }
    
   async getUid(){
     const user = await this.afAuth.currentUser;
@@ -174,6 +84,7 @@ export class ContabilidadComprasComponent implements OnInit {
       return user?.uid;
     }
   }
+
   obtenerDocs(){
     let Docs:any = [];
     for(let i = 1 ; i < this.excelData.length ; i++){
@@ -181,6 +92,7 @@ export class ContabilidadComprasComponent implements OnInit {
     }
     return Docs;
   }
+
   comprobarCodigosDoc():boolean{ //repetir para ventas, pero cambiar codigos
     let codigosExcel = this.obtenerDocs();
     const codigosPermitidos = [29,30,32,33,34,40,43,45,46,55,56,60,61,108,901,914,911,904,909,910,911]
@@ -205,17 +117,19 @@ export class ContabilidadComprasComponent implements OnInit {
         allowOutsideClick: false,
       })
     }else{
-      if(this.comprobarCodigosDoc() === true){
-        this.cuentasToString()
-        if(this.revisarCuentas()===true){
+      if(this.revisarCuentas()===true){
           
-          Swal.fire({
-            title: '¡Cuidado!',
-            text: 'Te faltan completar algunas cuentas',
-            icon: 'warning',
-            allowOutsideClick: false,
-          })
-        }else{ 
+        Swal.fire({
+          title: '¡Cuidado!',
+          text: 'Te faltan completar algunas cuentas',
+          icon: 'warning',
+          allowOutsideClick: false,
+        })
+      }else{ 
+      if(this.comprobarCodigosDoc() === false){
+        this.cuentasToString()
+        
+        
           const id = await this.getUid();//arreglar los guardados         
           for(let i = 1; i<this.excelData.length; i++){
             for(let j = 0; j<29 ; j++){
@@ -264,50 +178,52 @@ export class ContabilidadComprasComponent implements OnInit {
               this.objetos.push(obj)
             }
             else{
-              this.showDetails = true
+              
+                //this.showDetails = true
+              
+              
+              
+
               const arreglo = this.inputsDetails
               let obj = Object.assign({
                 "uid":id,
-              "anio": this.addAnio,
-              "mes": this.addMes,
-              "cuenta": this.nombreCuenta[i],
-              "nro":this.excelData[i][0],
-              "tipoDoc":this.excelData[i][1],
-              "tipoCompra":this.excelData[i][2],
-              "rutProveedor":this.excelData[i][3],
-              "razonSocial":this.excelData[i][4],
-              "folio":this.excelData[i][5],
-              "fechaDocto":this.excelData[i][6],  //arreglar formato fechas
-              "fechaRecepcion":this.excelData[i][7], //arreglas formato fechas
-              "fechaAcuse":this.excelData[i][8],
-              "montoExento":this.excelData[i][9],
-              "montoNeto":this.excelData[i][10],
-              "montoIVA_Recuperable":this.excelData[i][11],
-              "montoIVA_NoRecuperable":this.excelData[i][12],
-              "codIVA_NR":this.excelData[i][13],
-              "montoTotal":this.excelData[i][14],
-              "montoNetoActivoFijo":this.excelData[i][15],
-              "IVA_ActivoFijo":this.excelData[i][16],
-              "IVA_UsoComun":this.excelData[i][17],
-              "impSinDerechoCred":this.excelData[i][18],
-              "IVA_NoRetenido":this.excelData[i][19],
-              "tabacosPuros":this.excelData[i][20],
-              "tabacosCigarrillos":this.excelData[i][21],
-              "tabacosElaborados":this.excelData[i][22],
-              "NCE_NDE":this.excelData[i][23],
-              "codOtroImp":this.excelData[i][24],
-              "valorOtroImpuesto":this.excelData[i][25],
-              "tasaOtroImpuesto":this.excelData[i][26],
-              "detalleActivoFijo": arreglo
+                "anio": this.addAnio,
+                "mes": this.addMes,
+                "cuenta": this.nombreCuenta[i],
+                "nro":this.excelData[i][0],
+                "tipoDoc":this.excelData[i][1],
+                "tipoCompra":this.excelData[i][2],
+                "rutProveedor":this.excelData[i][3],
+                "razonSocial":this.excelData[i][4],
+                "folio":this.excelData[i][5],
+                "fechaDocto":this.excelData[i][6],  //arreglar formato fechas
+                "fechaRecepcion":this.excelData[i][7], //arreglas formato fechas
+                "fechaAcuse":this.excelData[i][8],
+                "montoExento":this.excelData[i][9],
+                "montoNeto":this.excelData[i][10],
+                "montoIVA_Recuperable":this.excelData[i][11],
+                "montoIVA_NoRecuperable":this.excelData[i][12],
+                "codIVA_NR":this.excelData[i][13],
+                "montoTotal":this.excelData[i][14],
+                "montoNetoActivoFijo":this.excelData[i][15],
+                "IVA_ActivoFijo":this.excelData[i][16],
+                "IVA_UsoComun":this.excelData[i][17],
+                "impSinDerechoCred":this.excelData[i][18],
+                "IVA_NoRetenido":this.excelData[i][19],
+                "tabacosPuros":this.excelData[i][20],
+                "tabacosCigarrillos":this.excelData[i][21],
+                "tabacosElaborados":this.excelData[i][22],
+                "NCE_NDE":this.excelData[i][23],
+                "codOtroImp":this.excelData[i][24],
+                "valorOtroImpuesto":this.excelData[i][25],
+                "tasaOtroImpuesto":this.excelData[i][26],
+                "detalleActivoFijo": arreglo
               })
               //console.log(obj)
               this.objetos.push(obj)
             }
                   
           }
-          
-        }
-        
       }else{
         Swal.fire({
           title: '¡Cuidado!',
@@ -316,9 +232,10 @@ export class ContabilidadComprasComponent implements OnInit {
           allowOutsideClick: false,
         })
       }
-      
+    }
     } //corroborar si ya esta en la bd?
     //segun tipo documento, realizar una funcion 
+    
      
   }
 
@@ -334,7 +251,7 @@ export class ContabilidadComprasComponent implements OnInit {
   comprobarActivoFijo(cuenta:string){
     let tipoCuenta = cuenta.substring(0,2)
     if(tipoCuenta==="12"){
-      this.showDetails = true
+       
       return true
     }
     return false
@@ -342,21 +259,27 @@ export class ContabilidadComprasComponent implements OnInit {
   }
 
   saveDetails(){
-    const ref = collection(this.firestore,'Contabilidad-Compras');
+    const ref = collection(this.firestore,'Probando');
     for(let i=0; i<this.objetos.length;i++){
       addDoc(ref,this.objetos[i])
     }   
-    this.showDetails = false
+    //this.showDetails = false
     Swal.fire({
       title: '¡Guardado!',
-      text: 'Se ha guardado la nueva compra junto con los detalles',
+      text: 'Se ha guardado la nueva compra',
       icon: 'success',
       allowOutsideClick: false,
-    }) 
+    })
   }
 
   hideModalDetails(){
     this.showDetails = false
+  }
+  showModalDetails(){
+    
+      this.showDetails = true
+    
+    
   }
 
   addDetails(){
@@ -387,6 +310,7 @@ export class ContabilidadComprasComponent implements OnInit {
     }
     return true
   }
+
       
 }
 

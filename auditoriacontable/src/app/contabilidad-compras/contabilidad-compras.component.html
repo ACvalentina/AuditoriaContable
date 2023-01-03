@@ -20,18 +20,24 @@
         <option *ngFor="let anio of datosAnio">{{anio}}</option>
     </select>
 </div>
-<input type="file" (change)="readExcel($event)">
+<div class="cont-fecha">
+    <input class="form-control" type="file" (change)="readExcel($event)" style="width: 400px">
+</div>
 <br>
 <br>
-<table class="table table-striped table-bordered table-sm">
+<table class="table table-striped table-bordered coso">
 <tbody>
-    <th style="padding: 5px;">CUENTAS</th>
+    <th style="padding: 10px;">CUENTAS</th>
     <tr *ngFor="let x of excelData; let  i = index">
         <td>
             <input onkeyup="javascript:this.value=this.value.toUpperCase()" type="text" #searchInput (keyup)="search(searchInput.value)"  list="listaCuentas" (keypress)="autocomplete()" [(ngModel)]="nombreCuenta[i]">
                 <datalist id="listaCuentas">
                     <option *ngFor="let cuenta of cuentas$ | async" value={{cuenta.data.id}}{{cuenta.data.nombre}}>
                 </datalist>
+        </td>
+        <!-- <td><a class="link" (click)="showModalDetails()" style="cursor: pointer;" data-bs-toggle="modal" href="#modalDetalles" data-whatever={{nombreCuenta[i]}}>Añadir detalle</a></td> -->
+        <td>
+            <button type="button" class="btn color-boton" (click)="showModalDetails()" data-bs-toggle="modal" data-bs-target="#modalDetalles">Añadir detalle</button>
         </td>
         <td *ngFor="let cell of x">
             {{cell}}
@@ -41,22 +47,32 @@
 </table>
 
 <br>
-<button (click)="guardar()" type="button" class="btn btn-outline-success">Guardar</button>
+<div class="cont-button-save">
+    <button (click)="guardar()" type="button" class="btn color-boton" style="width: 120px;">Guardar</button>
+</div>
 
 <ng-container *ngIf="showDetails">
-    <div class="modal modalc">
+<ng-container *ngFor="let cuent of nombreCuenta; let i = index" >
+<ng-container *ngIf="comprobarActivoFijo(nombreCuenta[i])">
+     
+    <div class="modal modalc" id="modalDetalles">
         <div class="modalc-content" style="width: 300px;">
             <div class="modal-header modalc-header">
-                <h1 class="modal-title fs-5">Detalles Activo Fijo</h1>
+                 <h1 class="modal-title fs-5">Detalles Activo Fijo</h1> 
                 <button (click)="hideModalDetails()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             
             <div class="modalc-body">
-                <ng-container *ngFor="let det of arrayDetails; let i = index">
-                <input type="text" class="form-control" [(ngModel)]="inputsDetails[i]">
+                <label class="form-label">Nombre Cuenta</label>
+                <input type="text" class="form-control" value={{nombreCuenta[i]}}>
                 <br>
+                <label class="form-label">Detalles</label>
+                <ng-container *ngFor="let det of arrayDetails; let i = index">
+                    <input type="text" class="form-control" [(ngModel)]="inputsDetails[i]">
+                    <br>
                 </ng-container>
                 <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-primary" (click)="showModalDetails()">Siguiente</button> -->
                     <button type="button" class="btn btn-primary" (click)="addDetails()">Añadir detalle</button>
                     <button type="submit" class="btn color-boton" (click)="saveDetails()">Guardar</button>
                 </div>
@@ -64,5 +80,6 @@
         </div>
     </div>
 </ng-container>
-
+</ng-container> 
+</ng-container>
 
