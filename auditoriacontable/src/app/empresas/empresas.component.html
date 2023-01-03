@@ -1,0 +1,125 @@
+<app-cabecera></app-cabecera>
+
+<!--FORMULARIO PARA AGREGAR UNA EMPRESA-->
+<div class="row">
+<br>
+<h3 style="text-align: center;">AGREGAR EMPRESA</h3>
+<hr>
+    
+
+<form id="form" class="col-sm-10" [formGroup]="formulario" (ngSubmit)="agregarEmpresa()">
+  
+    <h4>Datos Empresa</h4>
+    <hr>
+    <div class="mb-3">
+        <label class="form-label">Nombre Cliente:</label>
+        <input type="text" class="form-control" formControlName="nombreCliente">
+        <div
+        *ngIf="(formulario.get('nombreCliente')?.touched && formulario.get('nombreCliente')?.errors?.['required'])"
+        class="alert alert-danger" style="background-color:  #106399 ; color: black;">
+        Este campo es obligatorio.
+        </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Razón Social:</label>
+      <input type="text" class="form-control" formControlName="razonSocial">
+      <div
+      *ngIf="(formulario.get('razonSocial')?.touched && formulario.get('razonSocial')?.errors?.['required'])"
+      class="alert alert-danger" style="background-color:  #106399 ; color: black;">
+      Este campo es obligatorio.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Nombre Corto:</label>
+      <input type="text" class="form-control" formControlName="nombreCorto">
+      <div
+      *ngIf="(formulario.get('nombreCorto')?.touched && formulario.get('nombreCorto')?.errors?.['required'])"
+      class="alert alert-danger" style="background-color:  #106399 ; color: black;">
+      Este campo es obligatorio.
+      </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Rut Empresa:</label>
+        <input type="text" class="form-control" formControlName="rutEmpresa">
+        <div
+        *ngIf="(formulario.get('rutEmpresa')?.touched && formulario.get('rutEmpresa')?.errors?.['required'])"
+        class="alert alert-danger" style="background-color:  #106399 ; color: black;">
+        Este campo es obligatorio.
+        </div>
+        <div
+          *ngIf="(formulario.get('rutEmpresa')?.touched && formulario.get('rutEmpresa')?.errors?.['pattern'])"
+          class="alert alert-danger" style="background-color:  #106399 ; color: black;"
+        >
+          Formato inválido.
+      </div>
+    </div>
+    
+    <div class="mb-3">
+      <label class="form-label">Giro Comercial:</label>
+      <input type="text" class="form-control" formControlName="giroComercial">
+      <div
+        *ngIf="(formulario.get('giroComercial')?.touched && formulario.get('giroComercial')?.errors?.['required'])"
+        class="alert alert-danger" style="background-color:  #106399 ; color: black;">
+        Este campo es obligatorio.
+      </div>
+    </div>
+
+  <h4>Representante Legal</h4>
+  <hr>
+  <div class="mb-3">
+    <label class="form-label">Nombre</label>
+    <input type="text" class="form-control" formControlName="nombreRL">
+    <div
+    *ngIf="(formulario.get('nombreRL')?.touched && formulario.get('nombreRL')?.errors?.['required'])"
+    class="alert alert-danger" style="background-color:  #106399 ; color: black;">
+    Este campo es obligatorio.
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Rut:</label>
+      <input type="text" class="form-control" formControlName="rutRL">
+      <div
+      *ngIf="(formulario.get('rutRL')?.touched && formulario.get('rutRL')?.errors?.['required'])"
+      class="alert alert-danger" style="background-color:  #106399 ; color: black;">
+      Este campo es obligatorio.
+      </div>
+      <div
+        *ngIf="(formulario.get('rutRL')?.touched && formulario.get('rutRL')?.errors?.['pattern'])"
+        class="alert alert-danger" style="background-color:  #106399 ; color: black;"
+      >
+        Formato inválido.
+      </div>
+  </div>
+  <h3>Opcionales</h3>
+<hr>
+<div class="mb-3">
+  <label class="form-label">Descripción:</label>
+  <textarea class="form-control" cols="30" rows="10" formControlName="descripcion"></textarea>
+</div>
+
+  <div class="mb-3">
+      <label class="form-label">Imagen (URL): </label>
+      <input type="text" class="form-control" formControlName="imagen">
+  </div>
+  <input style="background-color: #1694e6 ;"type="submit" value="Enviar" class="btn" [disabled]="formulario.get('nombreCliente')?.errors?.['required'] || formulario.get('rutEmpresa')?.errors?.['required'] || formulario.get('giroComercial')?.errors?.['required'] || formulario.get('razonSocial')?.errors?.['required'] || formulario.get('nombreCorto')?.errors?.['required'] || formulario.get('nombreRL')?.errors?.['required'] || formulario.get('rutRL')?.errors?.['required'] || formulario.get('rutEmpresa')?.errors?.['pattern'] || formulario.get('rutRL')?.errors?.['pattern']">
+
+</div>
+
+</form>
+</div>
+<!--DESPLIEGUE EMPRESAS-->
+<!---->
+<div class="row" style="background-color:  #9cbfd6 ;margin-left: 1%;">
+<h3 style="text-align:center;">MIS CLIENTES</h3>
+<hr>
+<div class="x" *ngFor="let x of empresas">
+<div class="image" [ngStyle]="{ backgroundImage: 'url('+x.imagen+')' }"></div>
+      <div class="info col-sm-11">
+          <h4>{{x.nombreCorto}}</h4>
+          <p>{{x.descripcion}}</p>
+          <p>{{x.rutEmpresa}}</p>
+          <p>{{x.giroComercial}}</p>
+          <!--<button class="btn btn-outline-danger" (click)="onClickDelete(place)">Borrar</button>  se requiere editar y borrar   -->
+      </div>
+  </div>
+<hr>
+</div>
