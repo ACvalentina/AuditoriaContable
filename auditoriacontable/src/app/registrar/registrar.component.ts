@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { addDoc, collection, Firestore } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, Firestore, query } from '@angular/fire/firestore';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Cuenta } from '../cuenta';
 import { FirebaseErrorService } from '../services/firebase-error.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { FirebaseErrorService } from '../services/firebase-error.service';
 })
 export class RegistrarComponent implements OnInit {
 
-  
+  cc:any= []
   registrarUsuario: FormGroup;
   username:any;
   email:any;
@@ -103,6 +104,22 @@ export class RegistrarComponent implements OnInit {
         "Tipo usuario":rolUser
       })
       const ref = collection(this.firestore,'Usuarios');
+      /*const refPC = collection(this.firestore,'PlanesDeCuentaUsuarios')
+      const ua = this.getUid()
+      const q = query(collection(this.firestore, "Cuentas"));
+      const cuentas = collectionData(q) as unknown as Cuenta[];
+      this.cc = cuentas
+      console.log(this.cc)
+      for(let i = 0; i<this.cc.length; i++){
+        let obj2 = Object.assign({
+          "cantidadHijos":0,
+          "id":cuentas[i].id,
+          "nombre":cuentas[i].nombre,
+          "usuarioAsociado":ua
+        })
+        console.log(obj2)
+        return addDoc(refPC,obj2)
+      }*/
       return addDoc(ref,obj);
     }
 
@@ -151,4 +168,21 @@ export class RegistrarComponent implements OnInit {
       this.addRol = this.opcionRol
     }
     
+    generarPlanesCuentasUsuario(){
+      const refPC = collection(this.firestore,'PlanesDeCuentaUsuarios')
+      const ua = this.getUid()
+      const q = query(collection(this.firestore, "Cuentas"));
+      const cuentas = collectionData(q) as unknown as Cuenta[];
+      for(let i = 0; i<cuentas.length; i++){
+        let obj2 = Object.assign({
+          "cantidadHijos":0,
+          "id":cuentas[i].id,
+          "nombre":cuentas[i].nombre,
+          "usuarioAsociado":ua
+        })
+        console.log(obj2)
+        addDoc(refPC,obj2)
+      }
+      
+    }
 }

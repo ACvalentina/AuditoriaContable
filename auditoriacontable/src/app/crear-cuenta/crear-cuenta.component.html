@@ -1,0 +1,27 @@
+<app-cabecera></app-cabecera>
+<h3 style="text-align:center;">ACTIVOS</h3>
+<hr>
+<div class="x" *ngFor="let x of cuentasActivos" style="margin-left: 25px;" >
+    <li>{{x.id}}{{x.nombre}}</li><button class="btn btn-success" (click)="crearCuenta(x.id,x.nombre)">+</button>
+</div>
+<h3 style="text-align:center;">PASIVOS</h3>
+<hr>
+<div class="x" *ngFor="let x of cuentasPasivos" style="margin-left: 25px;">
+    <li>{{x.id}}{{x.nombre}}</li><button class="btn btn-success" (click)="crearCuenta(x.id,x.nombre)">+</button>
+</div>
+<h3 style="text-align:center;">PÉRDIDAS</h3>
+<hr>
+<div class="x" *ngFor="let x of cuentasPerdidas" style="margin-left: 25px;">
+    <li>{{x.id}}{{x.nombre}}</li><button class="btn btn-success" (click)="crearCuenta(x.id,x.nombre)">+</button>
+</div>
+<h3 style="text-align:center;">GANANCIAS</h3>
+<hr>
+<div class="x" *ngFor="let x of cuentasGanancias" style="margin-left: 25px;">
+    <li>{{x.id}}{{x.nombre}}</li><button class="btn btn-success" (click)="crearCuenta(x.id,x.nombre)">+</button>
+</div>
+<h3 style="text-align:center;">ORDEN</h3>
+<hr>
+<div class="x" *ngFor="let x of cuentasOrden" style="margin-left: 25px;">
+    <li>{{x.id}}{{x.nombre}}</li><button class="btn btn-success" (click)="crearCuenta(x.id,x.nombre)">+</button>
+</div>
+    

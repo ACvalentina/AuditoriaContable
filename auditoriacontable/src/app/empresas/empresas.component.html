@@ -39,7 +39,7 @@
       </div>
     </div>
     <div class="mb-3">
-        <label class="form-label">Rut Empresa:</label>
+        <label class="form-label">Rut Empresa (11.111.111-1):</label>
         <input type="text" class="form-control" formControlName="rutEmpresa">
         <div
         *ngIf="(formulario.get('rutEmpresa')?.touched && formulario.get('rutEmpresa')?.errors?.['required'])"
@@ -51,7 +51,13 @@
           class="alert alert-danger" style="background-color:  #106399 ; color: black;"
         >
           Formato inválido.
-      </div>
+        </div>
+        <div
+        *ngIf="formulario.get('rutEmpresa')?.touched && !verificarRut(this.formulario.value.rutEmpresa)"
+        class="alert alert-danger" style="background-color:  #106399 ; color: black;"
+      >
+        RUT Inválido.
+        </div>
     </div>
     
     <div class="mb-3">
@@ -75,7 +81,7 @@
     Este campo es obligatorio.
     </div>
     <div class="mb-3">
-      <label class="form-label">Rut:</label>
+      <label class="form-label">Rut (11.111.111-1):</label>
       <input type="text" class="form-control" formControlName="rutRL">
       <div
       *ngIf="(formulario.get('rutRL')?.touched && formulario.get('rutRL')?.errors?.['required'])"
@@ -88,6 +94,12 @@
       >
         Formato inválido.
       </div>
+      <div
+        *ngIf="formulario.get('rutRL')?.touched && !verificarRut(this.formulario.value.rutRL)"
+        class="alert alert-danger" style="background-color:  #106399 ; color: black;"
+      >
+        RUT Inválido.
+        </div>
   </div>
   <h3>Opcionales</h3>
 <hr>
