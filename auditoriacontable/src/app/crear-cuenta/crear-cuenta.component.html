@@ -1,27 +1,27 @@
 <app-cabecera></app-cabecera>
 <h3 style="text-align:center;">ACTIVOS</h3>
 <hr>
-<div class="x" *ngFor="let x of cuentasActivos" style="margin-left: 25px;" >
-    <li>{{x.id}}{{x.nombre}}</li><button class="btn btn-success" (click)="crearCuenta(x.id,x.nombre)">+</button>
+<div class="x" *ngFor="let a of cuentasActivos" style="margin-left: 25px;" >
+    <li>{{a.id}}{{a.nombre}}</li><button class="btn btn-success" (click)="crearCuenta(a.id,a.nombre)">+</button>
 </div>
 <h3 style="text-align:center;">PASIVOS</h3>
 <hr>
-<div class="x" *ngFor="let x of cuentasPasivos" style="margin-left: 25px;">
-    <li>{{x.id}}{{x.nombre}}</li><button class="btn btn-success" (click)="crearCuenta(x.id,x.nombre)">+</button>
+<div class="b" *ngFor="let b of cuentasPasivos" style="margin-left: 25px;">
+    <li>{{b.id}}{{b.nombre}}</li><button class="btn btn-success" (click)="crearCuenta(b.id,b.nombre)">+</button>
 </div>
 <h3 style="text-align:center;">PÉRDIDAS</h3>
 <hr>
-<div class="x" *ngFor="let x of cuentasPerdidas" style="margin-left: 25px;">
-    <li>{{x.id}}{{x.nombre}}</li><button class="btn btn-success" (click)="crearCuenta(x.id,x.nombre)">+</button>
+<div class="c" *ngFor="let c of cuentasPerdidas" style="margin-left: 25px;">
+    <li>{{c.id}}{{c.nombre}}</li><button class="btn btn-success" (click)="crearCuenta(c.id,c.nombre)">+</button>
 </div>
 <h3 style="text-align:center;">GANANCIAS</h3>
 <hr>
-<div class="x" *ngFor="let x of cuentasGanancias" style="margin-left: 25px;">
-    <li>{{x.id}}{{x.nombre}}</li><button class="btn btn-success" (click)="crearCuenta(x.id,x.nombre)">+</button>
+<div class="d" *ngFor="let d of cuentasGanancias" style="margin-left: 25px;">
+    <li>{{d.id}}{{d.nombre}}</li><button class="btn btn-success" (click)="crearCuenta(d.id,d.nombre)">+</button>
 </div>
 <h3 style="text-align:center;">ORDEN</h3>
 <hr>
-<div class="x" *ngFor="let x of cuentasOrden" style="margin-left: 25px;">
-    <li>{{x.id}}{{x.nombre}}</li><button class="btn btn-success" (click)="crearCuenta(x.id,x.nombre)">+</button>
+<div class="e" *ngFor="let e of cuentasOrden" style="margin-left: 25px;">
+    <li>{{e.id}}{{e.nombre}}</li><button class="btn btn-success" (click)="crearCuenta(e.id,e.nombre)">+</button>
 </div>
     

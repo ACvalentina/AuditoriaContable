@@ -19,7 +19,7 @@ export class CrearCuentaComponent implements OnInit {
   cuentasGanancias:any=[]
   cuentasPerdidas:any=[]
   cuentasOrden:any=[]
-  contGlobal:number = 0
+  contGlobal:any
   arrGlobal:any=[]
   constructor(private firestore:Firestore, private userSv:UserService) { }
 
@@ -147,6 +147,7 @@ export class CrearCuentaComponent implements OnInit {
       }
     
     })
+    console.log(this.cuentasActivos)
   }
 
   async obtenerMisCuentas():Promise<Observable<Cuenta>>{
@@ -163,7 +164,46 @@ export class CrearCuentaComponent implements OnInit {
   }
   
   async crearCuenta(idPadre:string,nombrePadre:string){
-    const refPC = collection(this.firestore,'PlanesDeCuentaUsuarios')
+    const ref = collection(this.firestore,'PlanesDeCuentaUsuarios')
+    const ua = await this.userSv.getUid()
+    const q = query(collection(this.firestore,"PlanesDeCuentaUsuarios"),where("usuarioAsociado","==",ua),where("idPadre","==",idPadre))
+    const cuentasUser = collectionData(q) as unknown as Observable<Cuenta>
+    
+    cuentasUser.subscribe(e=>{
+      this.arrGlobal = e
+    })
+    this.arrGlobal
+    
+    let cont = this.arrGlobal.length
+    let nuevoId
+
+    if(cont>9){
+      nuevoId = idPadre+cont.toString()+"-"
+    }
+    else if(this.contGlobal<10){ 
+      nuevoId = idPadre+"0"+cont.toString()+"-"
+    }
+
+    if(cont<100){
+      let obj = Object.assign({
+      "id":nuevoId,
+      "usuarioAsociado":ua,
+      "nombre":nombrePadre,
+      "idPadre":idPadre,
+      })
+      addDoc(ref,obj)
+    }
+    else{
+      Swal.fire({
+        title: '¡Cuidado!',
+        text: 'Has llegado al máximo para esta cuenta',
+        icon: 'warning',
+        allowOutsideClick: false,
+      })
+    }
+    this.arrGlobal = []
+    
+    /*const refPC = collection(this.firestore,'PlanesDeCuentaUsuarios')
     const ua = await this.userSv.getUid()
     const q = query(collection(this.firestore,"PlanesDeCuentaUsuarios"),where("usuarioAsociado","==",ua),where("idPadre","==",idPadre))
     const cuentasUser = collectionData(q) as unknown as Observable<Cuenta>
@@ -206,7 +246,7 @@ export class CrearCuentaComponent implements OnInit {
         icon: 'warning',
         allowOutsideClick: false,
       })
-    }
+    }*/
   }
 }
 
