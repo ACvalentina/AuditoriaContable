@@ -30,5 +30,5 @@ export interface Compras {
     tipoCompra:string,
     tipoDoc:string,
     uid:string,
-    valorOtroImpuesto:string
+    valorOtroImpuesto:string,
 }
