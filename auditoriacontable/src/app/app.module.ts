@@ -33,6 +33,10 @@ import { ContabilidadComprasComponent } from './contabilidad-compras/contabilida
 import { CommonModule } from '@angular/common';
 import { ContabilidadVentasComponent } from './contabilidad-ventas/contabilidad-ventas.component';
 import { EmpresasComponent } from './empresas/empresas.component';
+import { CrearCuentaComponent } from './crear-cuenta/crear-cuenta.component';
+import { HonorarioAnualComponent } from './honorario-anual/honorario-anual.component';
+import { HonorarioMensualComponent } from './honorario-mensual/honorario-mensual.component';
+import { HonorarioDiarioComponent } from './honorario-diario/honorario-diario.component';
 
 
 
@@ -47,7 +51,11 @@ const appRoutes : Routes = [
   {path:'contrasena-recuperada',component:ContrasenaRecuperadaComponent},
   {path:'empresas',component:EmpresasComponent,...canActivate(()=>redirectUnauthorizedTo(['']))},
   {path:'contabilidad-compras',component:ContabilidadComprasComponent,...canActivate(()=>redirectUnauthorizedTo(['']))},
-  {path:'contabilidad-ventas',component:ContabilidadVentasComponent,...canActivate(()=>redirectUnauthorizedTo(['']))}
+  {path:'contabilidad-ventas',component:ContabilidadVentasComponent,...canActivate(()=>redirectUnauthorizedTo(['']))},
+  {path:'crear-cuentas',component:CrearCuentaComponent,...canActivate(()=>redirectUnauthorizedTo(['']))},
+  {path:'honorario-anual',component:HonorarioAnualComponent,...canActivate(()=>redirectUnauthorizedTo(['']))},
+  {path:'honorario-mensual',component:HonorarioMensualComponent,...canActivate(()=>redirectUnauthorizedTo(['']))},
+  {path:'honorario-diario',component:HonorarioDiarioComponent,...canActivate(()=>redirectUnauthorizedTo(['']))}
 ]
 
 registerAllModules()
@@ -66,7 +74,11 @@ registerAllModules()
     ModalComponent,
     RecuperarComponent,
     ContabilidadComprasComponent,
-    ContabilidadVentasComponent
+    ContabilidadVentasComponent,
+    CrearCuentaComponent,
+    HonorarioAnualComponent,
+    HonorarioDiarioComponent,
+    HonorarioMensualComponent
   ],
   imports: [
     CommonModule,

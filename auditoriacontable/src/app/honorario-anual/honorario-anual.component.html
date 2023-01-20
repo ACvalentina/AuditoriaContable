@@ -1,16 +1,15 @@
 <app-cabecera></app-cabecera>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- SCRIPTS DEL HANDSONTABLE -->
 <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@handsontable/angular/bundles/handsontable-angular.umd.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css" rel="stylesheet">
 
-<input type="file" (change)="readExcel($event)">
 
 <br>
 <br>
 
-
-<h3 style="text-align:center;">VENTAS</h3>
+<h3 style="text-align:center;">HONORARIOS INFORME ANUAL</h3>
 <div class="cont-fecha">
     <select [(ngModel)]="opcionMes" class="form-select form-select-lg" aria-label=".form-select-lg example" (change)="getMes()">
         <option value="0">Seleccione el mes</option>
@@ -37,9 +36,6 @@
                 </datalist>
         </td>
         <!-- <td><a class="link" (click)="showModalDetails()" style="cursor: pointer;" data-bs-toggle="modal" href="#modalDetalles" data-whatever={{nombreCuenta[i]}}>Añadir detalle</a></td> -->
-        <td>
-            <button type="button" class="btn color-boton" (click)="showModalDetails()" data-bs-toggle="modal" data-bs-target="#modalDetalles">Añadir detalle</button>
-        </td>
         <td *ngFor="let cell of x">
             {{cell}}
         </td>
@@ -51,24 +47,3 @@
 <div class="cont-button-save">
     <button (click)="guardar()" type="button" class="btn color-boton" style="width: 120px;">Guardar</button>
 </div>
-<!-- <table class="table table-striped table-bordered table-sm">
-    <tbody>
-        <tr *ngFor="let x of excelData">
-            <td *ngFor="let cell of x">
-                {{cell}}
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-<hot-table 
-licenseKey="non-commercial-and-evaluation"
-[data]="excelData" 
-[colHeaders]="true"
-[rowHeaders]="true"
-height="auto"
-width="auto"
-*ngIf="show">
-    <hot-column *ngFor="let x of excelData" title=""></hot-column>
-</hot-table> -->
-

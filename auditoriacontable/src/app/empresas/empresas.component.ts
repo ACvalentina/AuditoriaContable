@@ -112,8 +112,7 @@ export class EmpresasComponent implements OnInit {
     }
   }
 
-  verificarRut(){ 
-    const rut = this.formulario.value.rutEmpresa;
+  verificarRut(rut:any){ 
     const dv = rut[rut.length-1]
     const rut_sin_dv = rut.slice(0,rut.length-2)
     const rut_sin_puntos = (rut_sin_dv.replace('.','').replace('.',''))
