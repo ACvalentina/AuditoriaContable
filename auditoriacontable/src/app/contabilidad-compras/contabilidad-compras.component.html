@@ -36,9 +36,9 @@
                 </datalist>
         </td>
         <!-- <td><a class="link" (click)="showModalDetails()" style="cursor: pointer;" data-bs-toggle="modal" href="#modalDetalles" data-whatever={{nombreCuenta[i]}}>Añadir detalle</a></td> -->
-        <td>
+        <!-- <td>
             <button type="button" class="btn color-boton" (click)="showModalDetails()" data-bs-toggle="modal" data-bs-target="#modalDetalles">Añadir detalle</button>
-        </td>
+        </td> -->
         <td *ngFor="let cell of x">
             {{cell}}
         </td>
@@ -52,8 +52,8 @@
 </div>
 
 <ng-container *ngIf="showDetails">
-<ng-container *ngFor="let cuent of nombreCuenta; let i = index" >
-<ng-container *ngIf="comprobarActivoFijo(nombreCuenta[i])">
+<!-- <ng-container *ngFor="let cuent of nombreCuenta; let i = index" > -->
+<!-- <ng-container *ngIf="comprobarActivoFijo(nombreCuenta[i])"> -->
      
     <div class="modal modalc" id="modalDetalles">
         <div class="modalc-content" style="width: 300px;">
@@ -63,9 +63,9 @@
             </div>
             
             <div class="modalc-body">
-                <label class="form-label">Nombre Cuenta</label>
-                <input type="text" class="form-control" value={{nombreCuenta[i]}}>
-                <br>
+                <!-- <label class="form-label">Nombre Cuenta</label>
+                <input type="text" class="form-control" value={{nombreCuenta[i]}}> -->
+              
                 <label class="form-label">Detalles</label>
                 <ng-container *ngFor="let det of arrayDetails; let i = index">
                     <input type="text" class="form-control" [(ngModel)]="inputsDetails[i]">
@@ -79,7 +79,7 @@
             </div>
         </div>
     </div>
-</ng-container>
-</ng-container> 
+<!-- </ng-container> -->
+<!-- </ng-container>  -->
 </ng-container>
 

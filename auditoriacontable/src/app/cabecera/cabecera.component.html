@@ -5,12 +5,14 @@
       <div class="container-menu">
         <div class="cont-menu">
           <nav>
-            <a href="/empresas">Mis Clientes</a>
+            <a *ngIf="!isSupervisor" href="/empresas">Mis Clientes</a>
             <a href="/contabilidad-compras">Compras</a>
             <a href="/contabilidad-ventas">Ventas</a>
             <a href="">Honorarios Informe Anual</a>
             <a href="">Honorarios Informe Mensual</a>
             <a href="">Honorarios Informe Diario</a>
+            <a href="">Libro diario</a>
+            <a href="">Libro mayor</a>
           </nav>
           <label for="btn-menu" class="icon-exit">
             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
@@ -37,7 +39,7 @@
     </a>
 
     <!--ICONOS-->
-    <div id="iconos" style="margin-left: 550px;">
+    <div id="iconos" style="margin-left: 100px; display: flex; height: 40px;">
 
       <!--ICONO HOME-->
       <a class="icon" href="/inicio2" >
@@ -45,21 +47,24 @@
           <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z"/>
         </svg>
       </a>
-      
+
       <!--EMPRESAS-->
-      <input formControlName="miEmpresaInput" id="miEmpresa" onkeyup="javascript:this.value=this.value.toUpperCase()" 
-                          type="text" #searchInput (keyup)="search(searchInput.value)" class="form-control input" list="listaCuentas">
-                          <datalist id="misEmpresas">
-                            <option *ngFor="let x of misEmpresas$ | async" value={{x.data.razonSocial}}>
-                          </datalist>
-      <!-- BOTON NUEVO COMPROBANTE -->
+      
+      <select id="myselect" name="select" class="form-select" (change)="onChange($event)" style="width: 300px; margin-right: 15px;" [(ngModel)]="selectedValue">
+        <option value="null">Seleccionar empresa</option>
+        <option [value]="empre.id" *ngFor="let empre of companies">{{empre.rutEmpresa}} - {{empre.razonSocial}}</option>
+      </select>
+      <!-- <button (click)="removeItemStorage()" type="button" class="btn color" >Cambiar empresa</button> -->
+      
+      <!-- BOTONES NUEVO COMPROBANTE Y SALIR -->
        
-      <button (click)="modal.showModal()" type="reset" class="btn color" >Nuevo comprobante</button>
+      <button (click)="modal.showModal()" type="reset" class="btn color" style="width: 180px;" >Nuevo comprobante</button>
       <button (click)="logOut()" type="button" class="btn color" >Salir</button>
+      
+      
       
     </div>
 </div>
 
 <!-- VENTANA NUEVO COMPROBANTE -->
 <app-modal #modal></app-modal>
-

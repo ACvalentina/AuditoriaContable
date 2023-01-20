@@ -100,7 +100,7 @@ export class RegistrarComponent implements OnInit {
         "Username":username,
         "RUT":rut,
         "Correo electrónico":email,
-        "Tipo usuario":rolUser
+        "rolUsuario":rolUser
       })
       const ref = collection(this.firestore,'Usuarios');
       return addDoc(ref,obj);

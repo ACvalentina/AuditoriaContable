@@ -127,7 +127,7 @@ export class ContabilidadComprasComponent implements OnInit {
           allowOutsideClick: false,
         })
       }else{ 
-      if(this.comprobarCodigosDoc() === false){
+      if(this.comprobarCodigosDoc() === true){
         this.cuentasToString()
         
         
@@ -180,7 +180,7 @@ export class ContabilidadComprasComponent implements OnInit {
             }
             else{
               
-                //this.showDetails = true
+                this.showDetails = true
               
               
               
@@ -264,7 +264,7 @@ export class ContabilidadComprasComponent implements OnInit {
     for(let i=0; i<this.objetos.length;i++){
       addDoc(ref,this.objetos[i])
     }   
-    //this.showDetails = false
+    this.showDetails = false
     Swal.fire({
       title: '¡Guardado!',
       text: 'Se ha guardado la nueva compra',
